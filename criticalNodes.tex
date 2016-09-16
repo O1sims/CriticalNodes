@@ -25,21 +25,6 @@
 
 \restylefloat{table}
 
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
-\fancyhf{}
-\fancyhead[LE,RO]{\bfseries\thepage}
-\fancyhead[LO]{\bfseries\rightmark}
-\fancyhead[RE]{\bfseries\leftmark}
-\renewcommand{\headrulewidth}{0.5pt}
-\renewcommand{\footrulewidth}{0pt}
-\addtolength{\headheight}{0.5pt}
-\setlength{\footskip}{0in}
-\renewcommand{\footruleskip}{0pt}
-\fancypagestyle{plain}{%
-\fancyhead{}
-\renewcommand{\headrulewidth}{0pt}
-}
 \parskip 0.05in
 
 \usepackage{appendix}
@@ -111,7 +96,7 @@
 
 \begin{document}
 
-\title{Contestability and Critical Nodes in Directed Networks}
+\title{\textbf{Contestability and Critical Nodes in Directed Networks}}
 \author{Owen Sims \and Robert P. Gilles}
 \date{\today}
 \maketitle
@@ -121,9 +106,12 @@ Critical nodes---or ``middlemen''---have an essential place in both social and e
 
 Node contestability is introduced as a form of competition in network; a duality between uncontested intermediaries and middlemen is established. The brokerage power of middlemen is formally expressed and a general algorithm constructed to measure the brokerage power of each node from the network's adjacency matrix. Augmentations of the brokerage power measure are discussed to encapsulate relevant centrality measures. Furthermore, we extend these notions and provide measures of the competitiveness of a network. To this we also provide measurements of the robustness of a middleman position.
 
-We use these concepts to dentify and measure middlemenin two empirical socio-economic networks. The first is the elite marriage network of Renaissance Florence. The other is Krackhardt's advice network.
+We use these concepts to identify and measure middlemen in two empirical socio-economic networks. The first is the elite marriage network of Renaissance Florence. The other is Krackhardt's advice network.
 \end{abstract}
 
+\newpage
+
+\section{The criticality of middlemen in networks}
 
 Research has recognised networks as important descriptors of social and economic processes \citep{Watts2004, Jackson2008, Newman2010}. Node centrality aims to identify the most influential nodes in the network.
 
@@ -137,7 +125,7 @@ One would expect that betweenness centrality measures would capture the influenc
 
 In the Florentine marriage network of the early renaissance \citep{Padgett1993, Padgett1994}, we conclude that our middleman power measure clearly ranks the more powerful middlemen higher than the less powerful, confirming with historical analysis. In \citet{Krackhardt1987}'s advice network, again our measure confirms Krackhardt's original assessment of the most influential node. Furthermore, we show that, despite the importance of middlemen in these networks, this positional feature is not properly and fully identified by conventional centrality measures.
 
-\subsubsection{Standard measures of node centrality}
+\subsection{Standard measures of node centrality}
 
 Middlemen have been investigated in both sociology and economics during the past three decades. The specific interest in economics was initiated by \citet{KalaiMiddlemen1978} who investigated the payoffs to middlemen in an intermediated trade environment. These insights were extended by \citet{RubinsteinWolinsky1987} who applied them to a model of market search. \citet{JacksonWolinsky1996} and \citet{GillesChakrabarti2006} further analysed middlemen in the context of economic interaction.
 
@@ -149,7 +137,7 @@ More complex centrality measures have been proposed. \citet{Bonacich1972,Bonacic
 
 The most common centrality measures do not provide a proper account of network power and, usually, overlook middlemen. Two exceptions are noted: First, the $\beta$-measure \citep{BrinkGilles1996, BrinkGilles2000} is founded on an axiomatic approach to measuring centrality. This measure is one of a few that measures dominance, and therefore power, in directed networks. \citet{BormBrink2002} develop an iterated $\beta$-measure which, much like the eigenvector and PageRank centralities, develops a score based on the dominance of the nodes that it dominates. Again, this lacks a specific application to directorate networks. Applications are mainly focussed on how nodes are dominated by others in hierarchical organisations. Second, \citet{Bozzo2015} provide both a vulnerability and power measure based on the number of nodes that can be victimised by so-called ``executioners''. The power of a node set is comparable to how integral the set is to the robustness of an undirected network.
 
-\paragraph{Article outline.}
+\subsection{Article outline}
 
 This chapter is partitioned into four sections. The first provides the required preliminaries for our analysis and introduces strong and weak middlemen within networked socio-economic spaces. We also consider the notion of network contestability, which is shown to be the dual notion to that of middlemen. The second section discusses a measure of middleman power, which assigns a quantitative expression to a node's brokerage power. The third section provides a variety of measures in which to assess the competitiveness of a network in both a static and dynamic sense. The final section investigates two empirical case studies of social networks where middlemen have tended to have importance: the Florentine marriage network and Krackhardt's advice network.
 
@@ -854,6 +842,7 @@ Middlemen possess an ability to connect pairs of agents who would otherwise be d
 
 The assessment of middlemen is purely individualised. We can extend the assessment to collective economic interaction and thus cooperative economic activities to include coalitions of economic agents who as a whole form a middleman position in a network.
 
+\newpage
 
 \section{Appendix}
 
@@ -878,7 +867,7 @@ Reassessing the directed network in Figure~\ref{weakmm}, the distance-based midd
 
 It may be particularly beneficial to use this modified measure to assess costly trade in a network or the diffusion of information that can degrade as it is being passed through a network. This assumption of information degradation and even complete truncation over a certain distance has been widely used in literature regarding social networks \citep{JacksonRogers2005}.
 
-\medskip \noindent We note that the middleman power measure should not be considered as a replacement for other centrality measures---it is itself not just a measure of centrality---rather it identifies a certain type of node in a network and measures brokerage. Instead, the measure can be complimented with other measures of centrality. The above example of distance-based brokerage is one of many augmentations that makes use of closeness centrality.
+\medskip\noindent We note that the middleman power measure should not be considered as a replacement for other centrality measures---it is itself not just a measure of centrality---rather it identifies a certain type of node in a network and measures brokerage. Instead, the measure can be complimented with other measures of centrality. The above example of distance-based brokerage is one of many augmentations that makes use of closeness centrality.
 
 \subsection{Power and centrality in Renaissance Florence networks} 
 \label{A}
