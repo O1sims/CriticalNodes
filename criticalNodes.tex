@@ -1,23 +1,16 @@
 \documentclass[11pt,fleqn]{article}
 
 \usepackage{shorttoc}
-\usepackage{makeidx,natbib,vmargin,setspace}
+\usepackage{makeidx, natbib, vmargin, setspace}
 \usepackage{tabu}
 \usepackage{color}
-\usepackage{framed}
-\usepackage{amsfonts}
-\usepackage{amssymb, amsthm}
+\usepackage{amsfonts, amssymb, amsthm, amsmath}
 \usepackage[T1]{fontenc}
 \usepackage[colorlinks=true, pdfstartview=FitV, citecolor=blue!50!black, linkcolor=red!30!black]{hyperref}
-\usepackage{graphicx,graphics,tikz}
-\usepackage{microtype}
+\usepackage{graphicx, graphics, tikz}
 \usepackage{eqnarray}
-\usepackage{rotating}
-\usepackage{booktabs}
 \usepackage{setspace}
-\usepackage{dcolumn}
 \usepackage{mathtools}
-\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{thmtools}
@@ -92,7 +85,6 @@
 \newenvironment{remark}{\begin{rmrk} \rm}{\hfill $\blacklozenge$ \end{rmrk}}{}
 
 \counterwithin{figure}{section}
-% \counterwithin{table}{section}
 
 \begin{document}
 
@@ -104,7 +96,7 @@
 \begin{abstract}
 Critical nodes---or ``middlemen''---have an essential place in both social and economic networks, particularly when considering the flow of information and trade. This paper extends the concept of critical nodes to directed network and, in doing so, identifies string and weak middlemen.
 
-Node contestability is introduced as a form of competition in network; a duality between uncontested intermediaries and middlemen is established. The brokerage power of middlemen is formally expressed and a general algorithm constructed to measure the brokerage power of each node from the network's adjacency matrix. Augmentations of the brokerage power measure are discussed to encapsulate relevant centrality measures. Furthermore, we extend these notions and provide measures of the competitiveness of a network. To this we also provide measurements of the robustness of a middleman position.
+Node contestability is introduced as a form of competition in network; a duality between uncontested intermediaries and middlemen is established. The brokerage power of middlemen is formally expressed and a general algorithm constructed to measure the brokerage power of each node from the network's adjacency matrix. Augmentations of the brokerage power measure are discussed to encapsulate relevant centrality measures. Furthermore, we extend these notions and provide measures of the competitiveness of a network. To this we also provide measurements regarding the robustness of a middleman position.
 
 We use these concepts to identify and measure middlemen in two empirical socio-economic networks. The first is the elite marriage network of Renaissance Florence. The other is Krackhardt's advice network.
 \end{abstract}
@@ -113,17 +105,17 @@ We use these concepts to identify and measure middlemen in two empirical socio-e
 
 \section{The criticality of middlemen in networks}
 
-Research has recognised networks as important descriptors of social and economic processes \citep{Watts2004, Jackson2008, Newman2010}. Node centrality aims to identify the most influential nodes in the network.
+Research has recognised networks as important descriptors of social and economic processes \citep{Watts2004, Jackson2008, Newman2010, Barabasi2016}. Node centrality aims to identify the most influential nodes in the network.
 
-This article makes a contribution to the analysis of nodes that are critical for the flow of information and trade in a network. Such critical agents---or ``middlemen''---have been solely considered for undirected networks \citep{Burt1992}. Here, we consider these nodes in the more general context of directed networks. We introduce a middleman as a specific type of node that can block the information flow from at least one node to another. If one applies this definition to undirected networks, one arrives at the standard notion of a middleman as a singleton node cut set. In the context of directed networks this is no longer the case: Its removal does not necessarily break up the whole network; it just compromises the information flow for at least one pair of nodes. In networked economies, the essential brokerage position of middlemen allows them to be highly extractive to both directly and indirectly connected nodes. On the other hand, their involvement lowers transaction costs in terms of search and the formation of beneficial links.
+This article makes a contribution to the analysis of nodes that are critical for the flow of information and trade in a network. Such critical agents---or ``middlemen''---have been recognised and researched with respect to undirected networks \citep{Burt1992}. Here, we consider these nodes in the more general context of directed networks. We introduce a middleman as a specific type of node that can block the information flow from at least one node to another. If one applies this definition to undirected networks, one arrives at the standard notion of a middleman as a singleton node cut set. In the context of directed networks this is no longer the case: Its removal does not necessarily break up the whole network; it just compromises the information flow for at least one pair of nodes. In networked economies, the essential brokerage position of middlemen allows them to be highly extractive to both directly and indirectly connected nodes. On the other hand, their involvement lowers transaction costs in terms of search and the formation of beneficial links.
 
-Naturally, the existence of middlemen is closely related to the competitive environment represented by that network. \citet{GillesDiamantaris2013} show in a very simple setting that middlemen have the potential to be highly exploitive given a lack of competition combined with a pessimistic outlook regarding their potential contestability in a network. The main conclusion from this research is a non-trivial extension of how economists and social scientists perceive the architecture and dynamics of exchange systems, how the presence of a middleman can knit a system together, and, as a consequence of their position, can act as rent-extracting monopolists with excessive bargaining power \citep[Chapter~11]{EasleyKleinberg2010}.
+Naturally, the existence of middlemen is closely related to the competitive environment represented by that network. \citet{GillesDiamantaris2013} show that middlemen have the potential to be highly exploitive given a lack of competition combined with a pessimistic outlook regarding their potential contestability in a network. The main conclusion from this research is a non-trivial extension of how economists and social scientists perceive the architecture and dynamics of exchange systems, how the presence of a middleman can knit a system together, and, as a consequence of their position, can act as rent-extracting monopolists with excessive bargaining power \citep[Chapter~11]{EasleyKleinberg2010}.
 
 We extend these notions to a more general definition of contestability in directed networks. In a directed network, a node is contested if alternative pathways are available to establish exchange between pairs of nodes in the network. Our main result shows that there is a formal duality between the existence of middlemen and network contestability. In particular, an intermediary node is a middleman if and only if it is uncontested.
 
 One would expect that betweenness centrality measures would capture the influence that such middlemen exert. However, we show that this is not the case. Instead, we propose a new \emph{middleman power measure} that exhibits the desired properties. We devise an algorithm that applies the adjacency matrix of any directed network to identify and measure the middlemen in that network. We apply this algorithm to study two very well known (historical) directed networks from the literature. These applications allow us to make an in-depth comparison with well-established centrality measures such as betweenness centrality and eigenvector centrality \citep{Bonacich1987}.
 
-In the Florentine marriage network of the early renaissance \citep{Padgett1993, Padgett1994}, we conclude that our middleman power measure clearly ranks the more powerful middlemen higher than the less powerful, confirming with historical analysis. In \citet{Krackhardt1987}'s advice network, again our measure confirms Krackhardt's original assessment of the most influential node. Furthermore, we show that, despite the importance of middlemen in these networks, this positional feature is not properly and fully identified by conventional centrality measures.
+Given the Florentine marriage network of the early Renaissance \citep{Padgett1993, Padgett1994}, we conclude that our middleman power measure clearly ranks the more powerful middlemen higher than the less powerful, confirming with historical analysis.  In \citet{Krackhardt1987}'s advice network, again our measure confirms Krackhardt's original assessment of the most influential node. Furthermore, we show that, despite the importance of middlemen in these networks, this positional feature is not properly and fully identified by conventional centrality measures.
 
 \subsection{Standard measures of node centrality}
 
@@ -926,9 +918,9 @@ Velluti         & Oligarch	& 28,108  	& 0(0) & 0.000 & 0.000 & 0.000      \\ \hl
 \end{center}
 \end{table}
 
-\singlespace
+\newpage
 
-\section{Bibliography}
+\singlespace
 
 \bibliographystyle{agsm}
 \bibliography{OSDB}
