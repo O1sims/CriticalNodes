@@ -98,7 +98,7 @@ Critical nodes---or ``middlemen''---have an essential place in both social and e
 
 Node contestability is introduced as a form of competition in network; a duality between uncontested intermediaries and middlemen is established. The brokerage power of middlemen is formally expressed and a general algorithm constructed to measure the brokerage power of each node from the network's adjacency matrix. Augmentations of the brokerage power measure are discussed to encapsulate relevant centrality measures. Furthermore, we extend these notions and provide measures of the competitiveness of a network. To this we also provide measurements regarding the robustness of a middleman position.
 
-We use these concepts to identify and measure middlemen in two empirical socio-economic networks. The first is the elite marriage network of Renaissance Florence. The other is Krackhardt's advice network.
+We use these concepts to identify and measure middlemen in two empirical socio-economic networks. The first is the elite marriage network of Renaissance Florence. The second is Krackhardt's advice network.
 \end{abstract}
 
 \newpage
@@ -131,9 +131,10 @@ The most common centrality measures do not provide a proper account of network p
 
 \subsection{Article outline}
 
-This chapter is partitioned into four sections. The first provides the required preliminaries for our analysis and introduces strong and weak middlemen within networked socio-economic spaces. We also consider the notion of network contestability, which is shown to be the dual notion to that of middlemen. The second section discusses a measure of middleman power, which assigns a quantitative expression to a node's brokerage power. The third section provides a variety of measures in which to assess the competitiveness of a network in both a static and dynamic sense. The final section investigates two empirical case studies of social networks where middlemen have tended to have importance: the Florentine marriage network and Krackhardt's advice network.
+We follow this introduction with three main sections. Section~\ref{sec:middlemenContestability} provides the required preliminaries for our analysis and introduces strong and weak middlemen within networked socio-economic spaces. We also consider the notion of network contestability, which is shown to be the dual notion to that of middlemen. Section~\ref{sec:middlemanPower} discusses a measure of middleman power, which assigns a quantitative expression to a node's brokerage power. Adding to this, the section provides a variety of measures regarding the robustness of middleman positions in the network. Finally, Section~\ref{sec:empiricalNetwork} investigates two empirical case studies of social networks where middlemen have tended to have importance: the Florentine marriage network and Krackhardt's advice network.
 
 \section{Middlemen and contestability}
+\label{sec:middlemenContestability}
 
 Our initial discussion focuses on the definition of a critical nodes in a directed network, which we denote as \emph{middlemen}. We introduce middlemen in relation to the connectivity in a network. In doing so we identify two related notions of middlemen, denoted as strong and weak middlemen depending on their network position.
 
@@ -169,9 +170,9 @@ A subset $M \subset N$ is a \emph{weakly connected component} of $D$ if $(M, D_M
 
 If $\mathcal{W}_{ij} (D) \neq \varnothing$ then $j$ is called the \textit{successor} of $i$ and $i$ is called the \textit{predecessor} of $j$ in $D$.
 
-For $i \in N$ we define $s_{i}(D) = \{ j \in N \mid (i,j) \in D \}$ being all of the \textit{direct successors} of $i$ in $D$, and $p_{i}(D)=\{j \in N \mid (j,i) \in D\}$ being all the \textit{direct predecessors} of $i$ in $D$. The \emph{out-degree} of $i$ is given by $d_{i}^{+} = \# s_{i}(D)$ and its \emph{in-degree} by $d_{i}^{-}= \# p_{i}(D)$. Now, $d_{i} = \# \{ s_{i} (D) \cup p_{i} (D) \}$ gives $i$'s overall degree\footnote{Note that the carinality of some set $A$ can be written as either $\#A$ or $|A|$.}.
+For $i \in N$ we define $s_{i}(D) = \{ j \in N \mid (i,j) \in D \}$ being all of the \textit{direct successors} of $i$ in $D$, and $p_{i}(D)=\{j \in N \mid (j,i) \in D\}$ being all the \textit{direct predecessors} of $i$ in $D$. The \emph{out-degree} of $i$ is given by $d_{i}^{+} = \# s_{i}(D)$ and its \emph{in-degree} by $d_{i}^{-}= \# p_{i}(D)$. Now, $d_{i} = \# \{ s_{i} (D) \cup p_{i} (D) \}$ gives $i$'s overall degree\footnote{Note that $\#A$ denotes the cardinality of some set $A$.}.
 
-We also use $P_{i}(D)=\{j \in N \mid \mathcal{W}_{ji}(D) \neq \varnothing \}$ which denotes $i$'s \textit{predecessor set}, and $S_{i}(D)= \{j \in N \mid \mathcal{W}_{ij}(D) \neq \varnothing \}$ being $i$'s \textit{successor set}\footnote{We emphasise that we do not include $i$ in its own predecessor or successor set.}. Node $k$ is an \emph{indirect successor} of $i$ in $D$ if $k \in S_{i}(D) \setminus s_i (D)$ meaning that $\mathcal{W}_{i,k}(D) \neq \varnothing$. Thus, $i$'s successor set includes all of $i$'s direct and indirect successors.
+We also use $P_{i}(D)=\{j \in N \mid \mathcal{W}_{ji}(D) \neq \varnothing \}$ which denotes $i$'s \textit{predecessor set}, and $S_{i}(D)= \{j \in N \mid \mathcal{W}_{ij}(D) \neq \varnothing \}$ being $i$'s \textit{successor set}. We emphasise that we do not include $i$ in its own predecessor or successor set. Node $k$ is an \emph{indirect successor} of $i$ in $D$ if $k \in S_{i}(D) \setminus s_i (D)$ meaning that $\mathcal{W}_{i,k}(D) \neq \varnothing$. Thus, $i$'s successor set includes all of $i$'s direct and indirect successors.
 
 Likewise, node $k$ is an \emph{indirect predecessor} of $i$ in $D$ if $k \in P_{i}(D) \setminus p_{i}(D)$, i.e., $\mathcal{W}_{k,i}(D) \neq \varnothing$. $i$'s predecessor set consists of all of $i$'s direct and indirect predecessors.
 
@@ -191,7 +192,7 @@ Consider a directed network $(N,D)$ and a node $i \in N$.
 
 The node set $N$ can be partitioned into three disjoint subsets: sources, sinks, and intermediaries. Node $i$ is a \emph{source} if $d_{i}^{-} = 0$ and $d_{i}^{+} \geqslant 1$; $i$ is a \emph{sink} if $d_{i}^{-} \geqslant 1$ and $d_{i}^{+} = 0$; and $i$ in an \emph{intermediary} if $d_{i}^{-} \geqslant 1$ and $d_{i}^{+} \geqslant 1$.
 
-Finally, we let $i \in N$ and $D-i$ be equivalent to:
+Finally, we let $i \in N$ and $D-i$ be equivalent to
 \begin{equation}
 D - i = D_{N \setminus i} = \left\{ (j,h) \in D \mid j,h \in N \setminus i \right\} .
 \end{equation}
@@ -207,11 +208,11 @@ Here, we extend this concept to directed networks. In this context our definitio
 \begin{definition}[Middleman] \label{middleman}
 Let $D$ be a network on node set $N$, where $h \in N$.
 \begin{itemize}
-\item Node $h$ is an \textbf{$(i,j)$--middleman} if for some pair $i,j \in N$ $\mathcal{W}_{ij} (D) \neq \varnothing$ and
+\item Node $h$ is an \textbf{$ij$-middleman} if for some pair $i,j \in N$ $\mathcal{W}_{ij} (D) \neq \varnothing$ and
 \begin{equation} \label{ijmiddleman}
-h \in \bigcap \mathcal{W}_{ij}(D) \setminus \{i,j\} = W_{ij}^{1}(D) \cap  \ldots  \cap W_{ij}^{V}(D) \setminus \{i,j\},
+h \in \bigcap \mathcal{W}_{ij}(D) \setminus \{i,j\} = \{W_{ij}^{1}(D) \cap  \ldots  \cap W_{ij}^{V}(D)\} \setminus \{i,j\},
 \end{equation}
-where $V \geqslant 1$ is the number of walks from $i$ to $j$. Here, $M_{i,j}(D) \equiv \cap \mathcal{W}_{ij}(D)$ denotes the \textbf{$(i,j)$--middleman set} containing all $(i,j)$--middlemen.
+where $V \geqslant 1$ is the number of walks from $i$ to $j$. Here, $M_{i,j}(D) \equiv \cap \mathcal{W}_{ij}(D)$ denotes the \textbf{$ij$-middleman set} containing all $ij$-middlemen.
 
 \item The \textbf{middleman set} for $D$ is the set of all middlemen in $D$ given by
 \begin{equation} \label{middlemanseteq}
@@ -453,11 +454,11 @@ Considering an economic network in which all nodes produce an homogeneous output
 Bertrand competition suggests that firms producing an homogenous output will be prone to compete with each other with respect to the price attached to their respective outputs \citep{Edgeworth1881}. Much of the analysis in market competition in economics has derived from this simple concept. Firms operating in this way will have no market power; potentially a price above the long-term marginal cost would be unsustainable since a competitor will be able to undercut it. Our notion of contestability is related to Bertrand competition in the sense that, if a given node is contested, its coverage and functions are contested, meaning that a contested node has no power in the network\footnote{Note that if all nodes provided a heterogeneous output then the notion of contestability and market competition breaks down. Furthermore, if we were to assume that all agents had highly differentiated information and ideas then individual nodes could technically not contest one another since they would all perform different functions and provide different insights into the network; indeed, all nodes will be unique.}.
 
 \section{Measuring middleman power}
-\label{networkpower}
+\label{sec:middlemanPower}
 
 A middleman occupies a critical position in a network since her removal disconnects at least two or more agents and, in the most extreme case, might have the ability to separate the network into multiple disconnected components. Therefore, it seems logical to ask how we can measure this power. After examining established measures, we propose a measure of middleman power based on the disconnections that emerge when middlemen are removed from the network.
 
-\subsection{Betweenness centrality and middlemen}
+\subsection{Middlemen and betweenness centrality}
 
 We first examine whether betweenness centrality could be a tool to assess middleman power. \emph{Betweenness centrality} was proposed independently by \citet{Anthonisse1971} for edges and rephrased by \citet{Freeman1977} for nodes in undirected networks. \citet{White1994} proposed an extension to directed networks.
 
@@ -470,10 +471,8 @@ BC_{i}(D) = \sum_{h,j \neq i \colon \pi(hj) \neq 0} \frac{\pi_{i}(hj)}{\pi(hj)}
 \end{equation}
 
 Equation \ref{betweennesscentrality} indicates that a middleman $i$ between nodes $k$ and $j$ would always have a high betweenness centrality since by Definition~\ref{middleman} a middleman is on all walks between these two nodes. However, this formulation only considers geodesics. As the next example illustrates, the betweenness centrality of non-middlemen may even surpass that of middlemen.
-\begin{example} \label{ex:BC}
-Consider the acyclic directed network $D''$ depicted in Figure~\ref{mmnmm}.
 
-\begin{figure}[h]
+\begin{figure}[t]
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \draw[thick, ->] (0,10) -- (4.3,10);
@@ -512,7 +511,8 @@ Consider the acyclic directed network $D''$ depicted in Figure~\ref{mmnmm}.
 \label{mmnmm}
 \end{figure}
 
-\noindent Here $M(D'') = \{ 4, 5, 6 \}$, and nodes $7$ and $8$ are contested intermediaries. All middlemen have the same non-normalised betweenness centrality measures due to their equivalent positions: $BC_{4}(D'')=BC_{5}(D'')=BC_{6}(D'')=4$. However, both contested intermediaries have larger non-normalised betweenness centrality scores: $BC_{7}(D'')=BC_{8}(D'')=6$.
+\begin{example} \label{ex:BC}
+Consider the acyclic directed network $D''$ depicted in Figure~\ref{mmnmm}. Here $M(D'') = \{ 4, 5, 6 \}$, and nodes $7$ and $8$ are contested intermediaries. All middlemen have the same non-normalised betweenness centrality measures due to their equivalent positions: $BC_{4}(D'')=BC_{5}(D'')=BC_{6}(D'')=4$. However, both contested intermediaries have larger non-normalised betweenness centrality scores: $BC_{7}(D'')=BC_{8}(D'')=6$.
 
 In the underlying undirected network, $U''$, where all arcs in $D''$ are reciprocated, the non-middlemen still have a higher betweenness centrality than middlemen: $BC_{4}(U'')=BC_{5}(U'')=BC_{6}(U'')=16.4$ and $BC_{7}(U'')=BC_{8}(U'')=25$. Table 2 provides a comparison of common centrality measures all of which indicate that nodes $7$ and $8$ are more central, therefore underrating the nodes with powerful middleman properties.
 \end{example}
@@ -560,9 +560,9 @@ Note that the successor set of a node contains all other nodes that can be reach
 
 Given the intuition of the first part of the equation, it can be implied that the second part, $\sum_{j \neq i} \# S_{j}(D - \{i\})$, refers to the total connectivity of the network when node $i$ is removed. We remark that $\sum_{j \in N} \# S_{j}(D) > \sum_{j \neq i} \# S_{j}(D - \{i\})$ if $d_{i}(D) \geqslant 1$, and $\sum_{j \in N} \# S_{j}(D) = \sum_{j \neq i} \# S_{j}(D - \{i\})$ if $d_{i} = 0$.
 
-Thus, $\sum_{j \in N} \# S_{j}(D) - \sum_{j \neq i} \# S_{j}(D - \{i\})$ expresses the \emph{connectivity differential} between the full network $D$ and the subnetwork $D - \{i\}$. The connectivity differential captures two features: (1) The direct connectivity of node $i$ in terms of its successor and predecessor set. Indeed, the larger the predecessor and successor sets of node $i$ the larger the differential will be regardless of whether $i$ is a middleman or not. (2) The lost connectivity to other nodes not including $i$.
+Thus, $\sum_{j \in N} \# S_{j}(D) - \sum_{j \neq i} \# S_{j}(D - \{i\})$ expresses the \emph{connectivity differential} between the full network $D$ and the subnetwork $D - \{i\}$. The connectivity differential captures two features: (1) The direct connectivity of node $i$ in terms of its successor and predecessor set. Indeed, the larger the predecessor and successor sets of node $i$ the larger the differential will be regardless of whether $i$ is a middleman or not; and (2) The lost connectivity to other nodes not including $i$.
 
-When considering the impact of a middleman, we are only interested in the lost connectivity (2) and, therefore, we compensate the connectivity differential with the connectivity of $i$ in the network. Specifically, the predecessor set and successor set of node $i$ is removed from the connectivity differential, thus adjusting for (1) and resulting in Equation~\ref{brokerage} above. The brokerage of a node therefore counts the number of third-party disconnections that occur due to the removal of a node; or in other words, counts the number of $(i,j)$-middleman sets that a node is a member of.
+When considering the impact of a middleman, we are only interested in the lost connectivity and, therefore, we compensate the connectivity differential with the connectivity of $i$ in the network. Specifically, the predecessor set and successor set of node $i$ is removed from the connectivity differential, thus adjusting for the direct connectivity of node $i$, resulting in Equation~\ref{brokerage} above. The brokerage of a node therefore counts the number of third-party disconnections that occur due to the removal of a node; or in other words, counts the number of $ij$-middleman sets that a node is a member of.
 
 If $b_{i}(D) = 0$ then the removal of $i$ from the network makes no change to the network's connectivity---when compensating for the connectivity of $i$. Hence, all nodes that are connected by a directed walk in $D$ can still be connected in $D - \{i\}$. In essence, compensating for their connection to $i$ in $D$, the number of successors of all $j$ nodes is the same in $D - \{i\}$ as in $D$.
 
@@ -677,8 +677,8 @@ Much like before, if a node is a middleman then the $\varphi$-robustness of the 
 
 The middleman power of a node provides a good indication of its robustness, however it is not necessarily true that a higher middleman power indicates a higher robustness. A higher middleman power provides a greater potential for having a larger robustness. A higher middleman power allows for the potential for a higher complexity in the middleman's predecessor and successor set. Indeed, the robustness of the middleman is increased if a greater number of its successors require the presence of the middleman to be connected to each other, and likewise for its predecessors.
 
-
 \section{An application to two empirical networks}
+\label{sec:empiricalNetwork}
 
 In this section we apply our two middleman power measures to two well-known social networks. From the assessment of these networks we provide a discussion regarding the potential of middlemen in these networks. The results of middleman power are compared with other measures of centrality. This is done in terms of reference; we refrain from correlating the results of these measures because we showed above that middleman power measures different aspects of a node than other measures.
 
@@ -707,7 +707,7 @@ A non-technical analysis of the network produced in Figure~\ref{Fig:FlorentineFa
 
 The structure of the Medician faction takes the form of a rooted tree---a hierarchical construct---where the Medici family exist at the root. Such a structure provides a better basis for top-down organisation and the distribution of command throughout the families. This structure contrasts with the Oligarchic faction where individual agents are more densely connected and thus more structurally equivalent. It was explained that the Oligarchic faction suffered from ill-defined leadership and inter-faction power struggles. This more decentralised structure is certainly reflected in the marriage network. Specifically, \citet{Padgett1993}, \citet{PadgettMcLean2006} and \citet{PadgettPowell2012} noted that the Oligarchic faction was less cohesive and more disorganised than the Medician faction. From our analysis it is seen that there are more brokerage opportunities in the Oligarchic faction highlighting that they were more disjunctured. We see that $\tfrac{7}{16}$ of the connected Oligarchs are middlemen against $\tfrac{2}{11}$ of the families in the Medician faction. Thus, the presence of more middleman positions within the Oligarchs decentralised structure allows for more brokering of information flows and, as such, a greater ability to manipulate information flows between members of the faction. This potential for the manipulation of information derived from the positional attributes of a family was not as prominent a feature within the Medician faction.
 
-Further, we note that when running Newman's Q-measure of network modularity \citep{Newman2004detecting, Newman2006}---which gives the value of 0.521---the different factions can be easily partitioned. More specifically, Oligarchic faction is deconstructed into three distinct communities whereas the Medician faction remains as one district community. Moreover, the partitioning of the communities are determined by the middlemen within the faction. This measure of modularity reinforces the disjunctured nature of the Oligarchic faction. The community structure of the giant weakly connected component can be seen in Figure~\ref{Fig:Florentinemodu} in the appendices of this chapter.
+Further, we note that when running Newman's Q-measure of network modularity \citep{Newman2004detecting, Newman2006}---which gives the value of 0.521---the different factions can be easily partitioned. More specifically, Oligarchic faction is deconstructed into three distinct communities whereas the Medician faction remains as one district community. Moreover, the partitioning of the communities are determined by the middlemen within the faction. This measure of modularity reinforces the disjunctured nature of the Oligarchic faction.
 
 \subsubsection{Centrality and power}
 
@@ -864,14 +864,7 @@ It may be particularly beneficial to use this modified measure to assess costly 
 \subsection{Power and centrality in Renaissance Florence networks} 
 \label{A}
 
-This chapter analysed the network structure and node centrality of elite Florentine marriages. Here we provide more information as to the modularity of the network (Figure~\ref{Fig:Florentinemodu}) and centrality of nodes within the network (Table~\ref{tabFlorenceA}).
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.4]{Images/Florentine-modu.png}
-\caption{Community structure detection on elite Florentine marriages}
-\label{Fig:Florentinemodu}
-\end{figure}
+This chapter analysed the network structure and node centrality of elite Florentine marriages. Here we provide more information as to the centrality of nodes within the network (Table~\ref{tabFlorenceA}).
 
 \begin{table}
 \begin{center}
