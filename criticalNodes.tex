@@ -125,9 +125,9 @@ Many of the general findings in the economics literature have been independently
 
 Despite the wide acknowledgement within social network analysis of the significance of middlemen, centrality measures do not necessarily identify these critical nodes as being important even though their removal may deteriorate the functionality of the network as a whole. As the notion of centrality came to the fore, \citet[p.~219]{Freeman1979} argued that central nodes were those ``in the thick of things''. To exemplify this, he used an undirected star network consisting of five nodes. The middle node, at the centre of the star, has three advantages over the other nodes: It has more ties; it can reach all the others more quickly; and it controls the flow between the others. Freeman developed three simple measures of node centrality based on the prevalent features of the center node: degree, closeness and betweenness.
 
-More complex centrality measures have been proposed. \citet{Bonacich1972,Bonacich1987} and \citet{Bonacich2001} proposed the use of the largest eigenvalue of the adjacency matrix as the basis for the measurement of network centrality. This measure expresses the idea that a node is more central if it is connected to nodes that are themselves central. Other measures, including Katz centrality \citep{Katz1953} take advantage of the same mechanism as Bonacich centrality by analysing the number of all nodes that a given node can be connected through a path, while contributions from linking distant nodes are progressively penalised. A node has a larger centrality if it has neighbours with a high Katz centrality. PageRank \citep{BrinPage1998} is a variant of Katz centrality, which recently gained application to the World Wide Web.
+More complex centrality measures have been proposed\footnote{For more background on centrality measures see \citet{Borgatti2005}, \citet[Chapter~4]{WassermanFaust1994} and \citet[Chapter~2.2]{Jackson2008}.}. \citet{Bonacich1972,Bonacich1987} and \citet{Bonacich2001} proposed the use of the largest eigenvalue of the adjacency matrix as the basis for the measurement of network centrality. This measure expresses the idea that a node is more central if it is connected to nodes that are themselves central. Other measures, including Katz centrality \citep{Katz1953} take advantage of the same mechanism as Bonacich centrality by analysing the number of all nodes that a given node can be connected through a path, while contributions from linking distant nodes are progressively penalised. A node has a larger centrality if it has neighbours with a high Katz centrality. PageRank \citep{BrinPage1998} is a variant of Katz centrality, which recently gained application to the World Wide Web.
 
-The most common centrality measures do not provide a proper account of network power and, usually, overlook middlemen. Two exceptions are noted: First, the $\beta$-measure \citep{BrinkGilles1996, BrinkGilles2000} is founded on an axiomatic approach to measuring centrality. This measure is one of a few that measures dominance, and therefore power, in directed networks. \citet{BormBrink2002} develop an iterated $\beta$-measure which, much like the eigenvector and PageRank centralities, develops a score based on the dominance of the nodes that it dominates. Again, this lacks a specific application to directorate networks. Applications are mainly focussed on how nodes are dominated by others in hierarchical organisations. Second, \citet{Bozzo2015} provide both a vulnerability and power measure based on the number of nodes that can be victimised by so-called ``executioners''. The power of a node set is comparable to how integral the set is to the robustness of an undirected network.
+The most common centrality measures do not provide a proper account of network power and, usually, overlook middlemen. Two exceptions are noted: First, the $\beta$-measure \citep{BrinkGilles1996, BrinkGilles2000} is founded on an axiomatic approach to measuring centrality. This measure is one of a few that measures dominance, and therefore power, in directed networks. \citet{BormBrink2002} develop an iterated $\beta$-measure which, much like the eigenvector and PageRank centralities, develops a score based on the dominance of the nodes that it dominates. Applications are focussed on how nodes are dominated by others in hierarchical organisations. Second, \citet{Bozzo2015} provide both a vulnerability and power measure based on the number of nodes that can be victimised by so-called ``executioners''. The power of a node set is comparable to how integral the set is to the robustness of an undirected network.
 
 \subsection{Article outline}
 
@@ -625,7 +625,7 @@ A middleman cannot take advantage of more than all brokerage opportunities prese
 Furthermore, neither $b_{i}(D) < 0$ nor $B(D) < 0$. The minimum brokerage of some node $k$ is in an empty network where $\# S_{k}(D) = \# P_{k}(D) = 0$. In that case, $\sum_{i \in N} \# S_{i}(D) = \sum_{i \neq k} \# S_{i}(D - \{k\})$ since $k$ has no connectivity in the network. Therefore, $\nu_i (D) \geqslant 0$ for any node $i \in N$.
 \end{proof}
 
-\medskip\noindent For large directed networks the calculation of the middleman power measure of a node can be tedious. The appendix to this paper contains a two-step algorithm based on the adjacency matrix of a directed network to identify middlemen and compute the middleman power measure of each node in an arbitrary directed network.
+\citet{BlochJackson2016} show that although prominent centrality measures in network analysis make use of different information about each nodes position in the network they all spring from a common family that are characterised by the same simple axioms. In particular, they are all based on a monotonic and additively separable treatment of a statistic that captures a node’s position in the network.
 
 \subsection{Middleman robustness}
 
@@ -719,7 +719,7 @@ We analyse the resulting directed network in Figure~\ref{Fig:FlorentineFamilies}
 \\[-1.8ex]\hline
 \hline \\[-1.8ex]
 	            & Gross   &								 &			 &		   &		  \\
-Name 		    & wealth  & $d^+_i$ $\left(d^-_i\right)$ & $BC_i$    & $E_i$   & $\nu_i$  \\ \hline
+Family 		    & wealth  & $d^+_i$ $\left(d^-_i\right)$ & $BC_i$    & $E_i$   & $\nu_i$  \\ \hline
 Albizzi(**)     & 249,940 & 3(3) 						 & 0.066 	 & 0.701   & 0.357 	  \\
 Castellani(**)  & 111,355 & 3(1) 						 & 0.034 	 & 0.310   & 0.187 	  \\
 Ginori(**)      & 42,333  & 1(2) 						 & 0.014 	 & 0.257   & 0.076    \\
@@ -788,32 +788,32 @@ Next we consider an example of a well-known organisational advice network in whi
 
 \begin{table}[h]
 \begin{center}
-\begin{tabu} to \textwidth {X[l]  X[c]  X[c]  X[c]  X[c]  X[c]}
+\begin{tabu} to \textwidth {X[l]  X[c]  X[c]  X[c]  X[c]}
 
 \\[-1.8ex]\hline
 \hline \\[-1.8ex]
-Manager       & $d^-_i$ $\left(d^+_i\right)$& $E_i$    & $BC_i$   & $\nu_i$  & $\nu_{i}^{*}$\\ \hline
-1             & 12 (4)           & 0.068    & 0.035    & 0.000    & 0.000		 \\
-2             & 18 (2)           & 0.306    & 0.011    & 0.000    & 0.000		 \\
-3             & 3 (9)            & 1.271    & 0.018    & 0.000    & 0.000		 \\
-4(*)          & 6 (7)            & 1.001    & 0.071    & 0.090    & 0.034		 \\
-5             & 3 (10)           & 1.463    & 0.009    & 0.000    & 0.000		 \\
-6             & 0 (1)            & 0.172    & 0.000    & 0.000    & 0.000		 \\
-7             & 11 (6)           & 0.776    & 0.048    & 0.000    & 0.000		 \\
-8             & 1 (7)            & 1.013    & 0.001    & 0.000    & 0.000		 \\
-9             & 4 (9)            & 1.171    & 0.011    & 0.000    & 0.000		 \\
-10            & 8 (5)            & 0.820    & 0.018    & 0.000    & 0.000		 \\
-11            & 9 (3)            & 0.344    & 0.004    & 0.000    & 0.000		 \\
-12            & 3 (1)            & 0.172    & 0.000    & 0.000    & 0.000		 \\
-13            & 0 (6)            & 0.938    & 0.000    & 0.000    & 0.000		 \\
-14            & 10 (4)           & 0.625    & 0.002    & 0.000    & 0.000		 \\
-15(*)         & 3 (9)            & 1.265    & 0.092    & 0.161    & 0.064		 \\
-16            & 0 (4)            & 0.580    & 0.000    & 0.000    & 0.000		 \\
-17            & 0 (5)            & 0.673    & 0.000    & 0.000    & 0.000		 \\
-18            & 15 (12)          & 1.745    & 0.231    & 0.000    & 0.000		 \\
-19            & 2 (10)           & 1.493    & 0.002    & 0.000    & 0.000		 \\
-20            & 6 (7)            & 1.028    & 0.028    & 0.000    & 0.000		 \\
-21(**)        & 15 (8)           & 1.348    & 0.176    & 0.147    & 0.051		 \\ \hline
+Manager       & $d^-_i$ $\left(d^+_i\right)$& $E_i$    & $BC_i$   & $\nu_i$      \\ \hline
+1             & 12 (4)           & 0.068    & 0.035    & 0.000 \\
+2             & 18 (2)           & 0.306    & 0.011    & 0.000 \\
+3             & 3 (9)            & 1.271    & 0.018    & 0.000 \\
+4(*)          & 6 (7)            & 1.001    & 0.071    & 0.090 \\
+5             & 3 (10)           & 1.463    & 0.009    & 0.000 \\
+6             & 0 (1)            & 0.172    & 0.000    & 0.000 \\
+7             & 11 (6)           & 0.776    & 0.048    & 0.000 \\
+8             & 1 (7)            & 1.013    & 0.001    & 0.000 \\
+9             & 4 (9)            & 1.171    & 0.011    & 0.000 \\
+10            & 8 (5)            & 0.820    & 0.018    & 0.000 \\
+11            & 9 (3)            & 0.344    & 0.004    & 0.000 \\
+12            & 3 (1)            & 0.172    & 0.000    & 0.000 \\
+13            & 0 (6)            & 0.938    & 0.000    & 0.000 \\
+14            & 10 (4)           & 0.625    & 0.002    & 0.000 \\
+15(*)         & 3 (9)            & 1.265    & 0.092    & 0.161 \\
+16            & 0 (4)            & 0.580    & 0.000    & 0.000 \\
+17            & 0 (5)            & 0.673    & 0.000    & 0.000 \\
+18            & 15 (12)          & 1.745    & 0.231    & 0.000 \\
+19            & 2 (10)           & 1.493    & 0.002    & 0.000 \\
+20            & 6 (7)            & 1.028    & 0.028    & 0.000 \\
+21(**)        & 15 (8)           & 1.348    & 0.176    & 0.147 \\ \hline
 \end{tabu}
 \caption{Influence, centrality, and middlemen in Krackhardt's advice network}
 \label{tabkrackhardt}
@@ -832,9 +832,12 @@ Due to the formation of new socio-economic roles entrepreneurial agents can assu
 
 Middlemen possess an ability to connect pairs of agents who would otherwise be disconnected from each other; these can have liberating externalities for those directly or indirectly connected to middlemen in the form of opening new exchange routes and channels of information, but middlemen can exploit their position and as such act in a highly extractive way to their neighbourhood. Whether a middleman behaves in an exploitive or facilitating manner is ambiguous and dependent on the institutional environment; however the middleman power measure provides a mechanism in which to measure the positional power of the middleman and therefore provides an objective quantitative value to the potentially extractive or value-generating nature of the entrepreneurial agent.
 
-The assessment of middlemen is purely individualised. We can extend the assessment to collective economic interaction and thus cooperative economic activities to include coalitions of economic agents who as a whole form a middleman position in a network.
+We make an important note that the middleman power measure should not be considered as a replacement for other centrality measures---it is itself not just a measure of centrality---rather it identifies a certain type of node in a network and measures brokerage. Instead, the measure can be complimented with other measures of centrality.
+
 
 \newpage
+
+\appendix
 
 \section{Appendix}
 
@@ -859,7 +862,23 @@ Reassessing the directed network in Figure~\ref{weakmm}, the distance-based midd
 
 It may be particularly beneficial to use this modified measure to assess costly trade in a network or the diffusion of information that can degrade as it is being passed through a network. This assumption of information degradation and even complete truncation over a certain distance has been widely used in literature regarding social networks \citep{JacksonRogers2005}.
 
-\medskip\noindent We note that the middleman power measure should not be considered as a replacement for other centrality measures---it is itself not just a measure of centrality---rather it identifies a certain type of node in a network and measures brokerage. Instead, the measure can be complimented with other measures of centrality. The above example of distance-based brokerage is one of many augmentations that makes use of closeness centrality.
+\subsection{Weighted brokerage}
+
+The analysis throughout the article looks at binary directed networks only. However, many networks can be weighted in terms of the intensity of the relationship between some pair of nodes $i$ and $j$ in $N$. We denote the weight of an arc $ij$ by $\omega_{ij}$, where $0 < \omega_{ij} \leq 1$ if there exists an arc and $\omega_{ij} = 0$ otherwise. The intuition is that the intensity of the relationship between $i$ and $j$ increases as $\omega_{ij}$ converges to $1$.
+
+Given a weighted directed network all $ij$-walks can be weighted. The weight of an $ij$-walk is given by the product of the weights of all arcs in the given walk from node $i$ to $j$. The \emph{strongest} walk from node $i$ to node $j$ is therefore considered to be the $ij$-walk with the largest weight. Note that this does not mean it is the geodesic path; but instead is equal to the walk with the highest weight. We formally define these concepts below.
+\begin{definition}[Weighted brokerage]
+Let $D$ be a weighted directed network on node set $N$ where $i,j \in N$ and $\mathcal{W}_{ij}(D) \neq \varnothing$ such that $i \neq j$.
+\begin{itemize}
+\item[(a)] The weight of some walk $W_{ij} \in \mathcal{W}_{ij}(D)$, denoted by $\Omega_{W_{ij}}$, is calculated by:
+\begin{equation}
+\Omega_{W_{ij}}(D) = \prod_{i_{\ell},i_{\ell+1} \in W_{ij}(D)} \omega_{i_{\ell}i_{\ell+1}}
+\end{equation}
+
+\end{itemize}
+
+\end{definition}
+
 
 \subsection{Power and centrality in Renaissance Florence networks} 
 \label{A}
