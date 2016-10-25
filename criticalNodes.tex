@@ -9,27 +9,19 @@
 \usepackage[colorlinks=true, pdfstartview=FitV, citecolor=blue!50!black, linkcolor=red!30!black]{hyperref}
 \usepackage{graphicx, graphics, tikz}
 \usepackage{eqnarray}
-\usepackage{setspace}
+% \usepackage{setspace}
 \usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{thmtools}
-\usepackage[section]{placeins}
+% \usepackage{thmtools}
+% \usepackage[section]{placeins}
+% \usepackage{appendix}
+% \usepackage{chngcntr}
+% \usepackage{etoolbox}
 
 \restylefloat{table}
 
 \parskip 0.05in
-
-\usepackage{appendix}
-\usepackage{chngcntr}
-\usepackage{etoolbox}
-
-\AtBeginEnvironment{subappendices}{%
-\chapter*{Appendix for Chapter~\thechapter}
-\addcontentsline{toc}{chapter}{Appendices}
-\counterwithin{figure}{section}
-\counterwithin{table}{section}
-}
 
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
@@ -42,7 +34,6 @@
 \let\oldnorm\norm
 \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
 \makeatother
-
 
 \newcounter{llst}
 \newenvironment{abet}{\begin{list}{\rm (\alph{llst})}{\usecounter{llst}
@@ -96,9 +87,9 @@
 \begin{abstract}
 Critical nodes---or ``middlemen''---have an essential place in both social and economic networks, particularly when considering the flow of information and trade. This paper extends the concept of critical nodes to directed network and, in doing so, identifies string and weak middlemen.
 
-Node contestability is introduced as a form of competition in network; a duality between uncontested intermediaries and middlemen is established. The brokerage power of middlemen is formally expressed and a general algorithm constructed to measure the brokerage power of each node from the network's adjacency matrix. Augmentations of the brokerage power measure are discussed to encapsulate relevant centrality measures. Furthermore, we extend these notions and provide measures of the competitiveness of a network. To this we also provide measurements regarding the robustness of a middleman position.
+Node contestability is introduced as a form of competition in network; a duality between uncontested intermediaries and middlemen is established. The brokerage power of middlemen is formally expressed and a calculation determined to measure the brokerage power of each node from the network's adjacency matrix. Augmentations of the brokerage power measure are discussed to encapsulate relevant centrality measures. Furthermore, we extend these notions and provide measures of the competitiveness of a network. To this we also provide measurements regarding the robustness of a middleman position.
 
-We use these concepts to identify and measure middlemen in two empirical socio-economic networks. The first is the elite marriage network of Renaissance Florence. The second is Krackhardt's advice network.
+We use these concepts to identify and measure middleman power in two empirical socio-economic networks. The first is the elite marriage network of Renaissance Florence. The second is Krackhardt's advice network.
 \end{abstract}
 
 \newpage
@@ -107,7 +98,7 @@ We use these concepts to identify and measure middlemen in two empirical socio-e
 
 Research has recognised networks as important descriptors of social and economic processes \citep{Watts2004, Jackson2008, Newman2010, Barabasi2016}. Node centrality aims to identify the most influential nodes in the network.
 
-This article makes a contribution to the analysis of nodes that are critical for the flow of information and trade in a network. Such critical agents---or ``middlemen''---have been recognised and researched with respect to undirected networks \citep{Burt1992}. Here, we consider these nodes in the more general context of directed networks. We introduce a middleman as a specific type of node that can block the information flow from at least one node to another. If one applies this definition to undirected networks, one arrives at the standard notion of a middleman as a singleton node cut set. In the context of directed networks this is no longer the case: Its removal does not necessarily break up the whole network; it just compromises the information flow for at least one pair of nodes. In networked economies, the essential brokerage position of middlemen allows them to be highly extractive to both directly and indirectly connected nodes. On the other hand, their involvement lowers transaction costs in terms of search and the formation of beneficial links.
+This article makes a contribution to the analysis of nodes that are critical for the flow of information and trade in a network. Such critical agents---or ``middlemen''---have been recognised and researched with respect to undirected networks \citep{Burt1992}. Here, we consider these nodes in the more general context of directed networks. We introduce a middleman as a specific type of node that can block the information flow from at least one node to another. If one applies this definition to undirected networks, one arrives at the standard notion of a middleman as a singleton node cut set. In the context of directed networks this is no longer the case: Its removal does not necessarily break up the whole network; it just compromises the information flow for at least one pair of nodes. In networked economies, the essential brokerage position of middlemen allows them to be highly extractive to both directly and indirectly connected nodes. On the other hand, their involvement lowers transaction costs in terms of search and the formation of beneficial connections.
 
 Naturally, the existence of middlemen is closely related to the competitive environment represented by that network. \citet{GillesDiamantaris2013} show that middlemen have the potential to be highly exploitive given a lack of competition combined with a pessimistic outlook regarding their potential contestability in a network. The main conclusion from this research is a non-trivial extension of how economists and social scientists perceive the architecture and dynamics of exchange systems, how the presence of a middleman can knit a system together, and, as a consequence of their position, can act as rent-extracting monopolists with excessive bargaining power \citep[Chapter~11]{EasleyKleinberg2010}.
 
@@ -201,16 +192,14 @@ Therefore $D_{N \setminus i}$ is the restricted network that removes all nodes i
 
 \subsection{Connectivity and middlemen}
 
-We identify \textit{critical nodes} as those having the ability to broker information flows in a network. Following \citet{GillesChakrabarti2006}, a critical node in an undirected network can disrupt and manipulate the typical operations on a network by disconnecting two or more nodes---which is equivalent to the property that removing a critical node partitions a given network into multiple disconnected components.
-
-Here, we extend this concept to directed networks. In this context our definition focusses on the disruption of connectivity of two nodes.
+We identify \textit{critical nodes} as intemediary nodes that have the ability to broker information flows in a network. Following \citet{GillesChakrabarti2006}, a critical node in an undirected network can disrupt and manipulate the typical operations on a network by disconnecting two or more nodes---which is equivalent to the property that removing a critical node partitions a given network into multiple disconnected components. Here, we extend this concept to directed networks. In this context our definition focusses on the disruption of connectivity of two nodes.
 
 \begin{definition}[Middleman] \label{middleman}
 Let $D$ be a network on node set $N$, where $h \in N$.
 \begin{itemize}
 \item Node $h$ is an \textbf{$ij$-middleman} if for some pair $i,j \in N$ $\mathcal{W}_{ij} (D) \neq \varnothing$ and
 \begin{equation} \label{ijmiddleman}
-h \in \bigcap \mathcal{W}_{ij}(D) \setminus \{i,j\} = \{W_{ij}^{1}(D) \cap  \ldots  \cap W_{ij}^{V}(D)\} \setminus \{i,j\},
+h \in \bigcap \mathcal{W}_{ij}(D) \setminus \{i,j\} = \{W_{ij}^{1}(D) \cap  \ldots  \cap W_{ij}^{V}(D)\} \setminus \{i,j\}~,
 \end{equation}
 where $V \geqslant 1$ is the number of walks from $i$ to $j$. Here, $M_{i,j}(D) \equiv \cap \mathcal{W}_{ij}(D)$ denotes the \textbf{$ij$-middleman set} containing all $ij$-middlemen.
 
@@ -231,15 +220,13 @@ The following properties can be deduced directly from the above definition.
 \begin{proposition}\label{TheoremIntermediary}
 Let $D$ be a directed network on the node set $N = \{ 1, \ldots ,n \}$.
 \begin{itemize}
-\item[(i)] Every middleman $i \in M(D)$ is an intermediary in $D$. 
+\item[(i)] Every middleman $i \in M(D)$ is an intermediary in $D$.
 
 \item[(ii)] If $n < 3$, there might exist intermediaries, but there are no middlemen.
 
 \item[(iii)] For $n \geqslant 3$ and $i \in N$, $p_{i}(D) \subset \left[ p_{j}(D) \cup \{ j \} \, \right]$ for every direct successor $j \in s_{i}(D)$ implies that $i \notin M(D)$.
 
-\item[(iv)] For all $i,j \in N$ with $j \in s_{i}(D)$ it holds that $M_{i,j}(D) = \varnothing$.
-\\
-This implies that the complete directed network has no middlemen.
+\item[(iv)] For all $i,j \in N$ with $j \in s_{i}(D)$ it holds that $M_{i,j}(D) = \varnothing$. This implies that the complete directed network has no middlemen.
 
 \item[(v)] Every middleman $i \in M(D)$ has a local clustering co-efficient of less than $1$.
 
@@ -404,7 +391,7 @@ Consider directed network $D'$ on node set $N = \{1,2,3,4,5,6\}$, shown in Figur
 \draw (0,5) node[circle,fill=black!20] {$5$};
 \draw (0,10) node[circle,fill=black!20] {$6$};
 
-\end{tikzpicture} 
+\end{tikzpicture}
 \caption[Network where node set $C = \{ 2,3 \}$ contests node $4$]{Network $D'$ where node set $C = \{ 2,3 \}$ contests node $4$}
 \label{Complex Contestability}
 \end{center}
@@ -418,7 +405,7 @@ P_{4}(D) \times S_{4}(D) \subset \left( \, \overline{P}_{2}(D - \{4\}) \times \o
 If node $4$ is removed from the network its function can be fully replaced by the combination of nodes $2$ and $3$ and therefore all other nodes that were connected can still be connected in the same way.
 \end{example}
 
-Example~\ref{Group Contestability} highlights the requirement for $\overline{P}_{j}(D - \{i\})$ used in the definition of contestability instead of the predecessor set, $P_{j}(D - \{i\})$, only. Consider the network in Figure~\ref{Complex Contestability}. As noted, there exist no middlemen and all intermediaries are contested given the definition of contestability provided above. With a more restricted definition it would be seen that node $4$ would not be a contested intermediary and also not a middleman. The more elaborative version provided in Definition~\ref{Contested} adjusts for predecessors of a given node, $i$, that can connect to the successors of $i$, therefore fulfilling the same function and thus contesting $i$. 
+Example~\ref{Group Contestability} highlights the requirement for $\overline{P}_{j}(D - \{i\})$ used in the definition of contestability instead of the predecessor set, $P_{j}(D - \{i\})$, only. Consider the network in Figure~\ref{Complex Contestability}. As noted, there exist no middlemen and all intermediaries are contested given the definition of contestability provided above. With a more restricted definition it would be seen that node $4$ would not be a contested intermediary and also not a middleman. The more elaborative version provided in Definition~\ref{Contested} adjusts for predecessors of a given node, $i$, that can connect to the successors of $i$, therefore fulfilling the same function and thus contesting $i$.
 
 Examples~\ref{Simple Contestability} and~\ref{Group Contestability} give an indication that if an intermediary is contested, it cannot be a middleman. For example, in Figure~\ref{weakmm} agent $3$ is a non-middleman because his function is directly contested by the presence of node $2$, and node $2$ is a middleman because its function is not contested by any other node in the network.
 
@@ -564,13 +551,11 @@ Thus, $\sum_{j \in N} \# S_{j}(D) - \sum_{j \neq i} \# S_{j}(D - \{i\})$ express
 
 When considering the impact of a middleman, we are only interested in the lost connectivity and, therefore, we compensate the connectivity differential with the connectivity of $i$ in the network. Specifically, the predecessor set and successor set of node $i$ is removed from the connectivity differential, thus adjusting for the direct connectivity of node $i$, resulting in Equation~\ref{brokerage} above. The brokerage of a node therefore counts the number of third-party disconnections that occur due to the removal of a node; or in other words, counts the number of $ij$-middleman sets that a node is a member of.
 
-If $b_{i}(D) = 0$ then the removal of $i$ from the network makes no change to the network's connectivity---when compensating for the connectivity of $i$. Hence, all nodes that are connected by a directed walk in $D$ can still be connected in $D - \{i\}$. In essence, compensating for their connection to $i$ in $D$, the number of successors of all $j$ nodes is the same in $D - \{i\}$ as in $D$.
-
-On the other hand, if $b_{i}(D) \geqslant 1$, there exists at least one pair of connected nodes that are now not connected in $D - \{i\}$, and $i$ must be a middleman.
+If $b_{i}(D) = 0$ then the removal of $i$ from the network makes no change to the network's connectivity---when compensating for the connectivity of $i$. Hence, all nodes that are connected by a directed walk in $D$ can still be connected in $D - \{i\}$. In essence, compensating for their connection to $i$ in $D$, the number of successors of all $j$ nodes is the same in $D - \{i\}$ as in $D$. On the other hand, if $b_{i}(D) \geqslant 1$, there exists at least one pair of connected nodes that are now not connected in $D - \{i\}$, and $i$ must be a middleman.
 
 \medskip\noindent We normalise the brokerage of a node by calculating the total number of potential opportunities for brokerage in the network. Brokerage---and, therefore, middleman positions---can only emerge if a pair of nodes are a minimum distance of two or more away from each other. Intuitively, by calculating the indirect successors of all nodes in the network, the total number of brokerage opportunities can be derived.
 
-The set of indirect successors of $i$ in $D$ is given by $S_{i}(D) \setminus s_{i}(D)$. Therefore, the number indirect successors for node $i$ is given by $\# S_{i}(D) - \# s_{i}(D)$. Given this, the maximal potential brokerage in $D$ is computed as
+The set of indirect successors of $i$ in $D$ is given by $S_{i}(D) \setminus s_{i}(D)$. Therefore, the number indirect successors for node $i$ is given by $\# S_{i}(D) - \# s_{i}(D)$. Given this, the maximal potential brokerage in $D$ is computed as:
 
 \begin{equation} \label{normalisation}
 B'(D) = \sum_{i \in N} \left[ \# S_{i}(D) - \# s_{i}(D) \right] .
@@ -586,7 +571,7 @@ Let $D$ be a directed network on node set $N$. The \textbf{middleman power} of n
 where $B(D) = \max \{ B'(D) , 1\}$.
 \end{definition}
 
-Empty and complete networks have to be assigned an artificial normalisation factor of unity as they would otherwise have no brokerage opportunities. 
+Empty and complete networks have to be assigned an artificial normalisation factor of unity as they would otherwise have no brokerage opportunities.
 
 A middleman has a network power of 1 if it brokers all potential opportunities in the network. This includes nodes at the centre of star networks; however, even if some of the leaf nodes form a connection between each other, the middleman power of the centre node remains 1.
 
@@ -618,7 +603,7 @@ Theorem~\ref{duality} asserts a duality between a contested intermediary and a n
 Since $k$ is an intermediary it holds that $\# P_{k}(D) > 0$, $\# S_{k}(D) > 0$ as well as $\sum_{i \in N} \# S_{i}(D) > \sum_{i \in N \setminus \{k\}} \# S_{i}(D - \{k\})$ since the nodes in $D - \{k\}$ can obviously not connect to $k$. Also, since the connectivity of the network $D$ is not affected by the removal of node $k$, it holds that the removal of $k$ only affects the connectivity with $k$ itself. Hence, $\sum_{i \in N} \# S_{i}(D) - \sum_{i \in N \setminus \{k\}} \# S_{i}(D - \{k\}) = \# S_{k}(D) + \# P_{k}(D)$. Therefore, $b_k (D) =0$, implying that $\nu_{k} = 0$.
 \\[1.5ex]
 \emph{Proof of (ii):}
-We omit a mathematical proof of (ii), due to its tedious nature. Instead, we provide an intuitive, more descriptive reasoning. 
+We omit a mathematical proof of (ii), due to its tedious nature. Instead, we provide an intuitive, more descriptive reasoning.
 \\
 A middleman cannot take advantage of more than all brokerage opportunities present in a network; therefore $B'(D) \geqslant b_{i}(D)$, implying $\nu_{i}(D) \leqslant 1$\footnote{Only in a network where a middleman rests on all geodesic walks of length two, for example an undirected star, it holds that $B'(D) = b_{i}(D)$.}.
 \\
@@ -629,62 +614,58 @@ Furthermore, neither $b_{i}(D) < 0$ nor $B(D) < 0$. The minimum brokerage of som
 
 \subsection{Middleman robustness}
 
-The exploitive position of a middleman can have varying levels of \emph{robustness} irrespective of its brokerage power. We perceive middleman robustness to infer how a given node can maintain an exploitive position even when there is a shock to the structure of the network due to the addition or deletion of arcs, links or nodes. There are a number of ways in which to measure the robustness of a given middleman. We provide three ways in which to measure middleman robustness: the first two measures assess the robustness of a nodes exploitive position given the deletion and addition of arcs; and the third assess middleman robustness given the removal of nodes from the initial network.
+Any given middleman position can have varying levels of \emph{middleman robustness} irrespective of its brokerage power. We perceive middleman robustness to infer how a given node can maintain an exploitive position given a change to the structure of the network from the addition or deletion of either arcs or nodes. We provide three ways in which to measure middleman robustness: the first two measures assess the robustness of a nodes exploitive position given the deletion and addition of arcs; and the third assess middleman robustness given the removal of nodes from the initial network. It is stipulated that a more robust middleman position is less sensitive to a change in the structure of the network. As social and economic relationships are formed between existing nodes, a middleman will be more prone to losing its powerful position if it is less robust. It is worth noting that the measurement of robustness is not easily applicable to networks that remain static over long periods of time such as neural and biological networks, nor networks in which individual nodes do not have autonomy to add or remove arcs, such as technological infrastructures. However, the measure is immediately applicable to social, economic and communication networks where the structure can be highly volatile.
 
-It is stipulated that a more robust middleman position is less sensitive to a change in the structure of the network. As social and economic relationships are formed between existing nodes, a middleman will be more prone to losing its powerful position if it is less robust. It is worth noting that the measurement of robustness is not easily applicable to networks that remain static over long periods of time such as neural and biological networks, nor networks in which individual nodes do not have autonomy to add or remove arcs and links such as technological infrastructures. However, the measure is directly applicable to social and economic networks where the structure can be highly volatile.
+\subsubsection{Arc robustness}
 
-\subsubsection{Link robustness measures}
-
-The \emph{$\alpha$-robustness} of a middleman is defined as the minimum number of arcs that need to be formed in the network in order for a middleman to be completely circumvented by all predecessors, and therefore lose its middleman position. From this we note the dual of $\alpha$-robustness, given as $\zeta$-robustness, which measures the minimum number of links that have to be removed from the network such that a given middleman loses its brokerage power.
+The \emph{$\alpha$-robustness} of a middleman is defined as the minimum number of arcs that need to be formed in the network in order for a middleman to be completely circumvented by all predecessors, and therefore lose its middleman position. From this we note the dual of $\alpha$-robustness, given as $\zeta$-robustness, which measures the minimum number of arcs that have to be removed from the network such that a given middleman loses its brokerage power.
 
 \begin{definition}[$\alpha$- and $\zeta$-robustness measures] \label{robustness}
-Let $D$ be some network on node set $N = \{1,\ldots,n\}$ where $i \in \mathcal{M}(D) \subseteq N$. 
+Let $D$ be some network on node set $N = \{1,\ldots,n\}$ where $i \in \mathcal{M}(D) \subseteq N$.
 \begin{itemize}
-	\item[(a)] The \textbf{$\alpha$-robustness} of $i$ is given by:
-	\begin{equation} 
-	\alpha_{i} = \min \, \left\{ \, \# D' \mid D \subset D' \mbox{ and } i \notin \mathcal{M}(D') \, \right\} - \# D , 
-	\end{equation}
-	where $\# D' > \# D$.
+\item[(a)] The \textbf{$\alpha$-robustness} of $i$ is given by:
+\begin{equation}
+\alpha_{i} = \min \, \left\{ \, \# D' \mid D \subset D' \mbox{ and } i \notin \mathcal{M}(D') \, \right\} - \# D ,
+\end{equation}
+where $\# D' > \# D$.
 
-	\item[(b)] The \textbf{$\zeta$-robustness} of $i$ is given by:
-	\begin{equation} 
-	\alpha_{i}^{\star} = \# D - \max \, \left\{ \# D' \mid D' \subset D \mbox{ and } i \notin \mathcal{M}(D) \, \right\} , 
-	\end{equation} 
-	where $\# D' < \# D$.
+\item[(b)] The \textbf{$\zeta$-robustness} of $i$ is given by:
+\begin{equation}
+\alpha_{i}^{\star} = \# D - \max \, \left\{ \# D' \mid D' \subset D \mbox{ and } i \notin \mathcal{M}(D) \, \right\} ,
+\end{equation}
+where $\# D' < \# D$.
 \end{itemize}
 \end{definition}
 
-In our case $D$ refers to the the set of arcs in a network, therefore the cardinality of $D$ provides a figure for the number of arcs in the network. The $\alpha$-robustness of a middleman is clearly given as the minimum number of arcs that need to be added to the initial network $D$ in order for a middleman to be completely circumvented and subsequently lose its position as a middleman. The dual of the $\alpha$-robustness is the $\zeta$-robustness which measures the minimum number of arcs that need to be removed from the initial network $D$ such that a given middleman no longer has an exploitive position in the resulting network $D' \subset D$.
+In our case $D$ refers to the the set of arcs in a network, therefore the cardinality of $D$ provides a figure for the number of arcs in the network. The $\alpha$-robustness of a middleman is clearly given as the minimum number of arcs that need to be added to the initial network $D$ in order for a middleman to be completely circumvented and subsequently lose its position as a middleman. The dual of the $\alpha$-robustness is the $\zeta$-robustness which measures the minimum number of arcs that need to be removed from the initial network $D$ such that a given middleman no longer has an exploitive position in the resulting network $D' \subset D$. If a node is a middleman then the value of both the $\alpha$-robustness and the $\zeta$-robustness will always be a positive integer. However, neither of the robustness measures will necessarily be correlated with its middleman power, in many situations there can exist an increasing middleman power with a constant $\alpha$-robustness and $\zeta$-robustness.
 
-If a node is a middleman then the value of both the $\alpha$-robustness and the $\zeta$-robustness will always be a positive integer. However, neither of the robustness measures will necessarily be correlated with its middleman power, in many situations there can exist an increasing middleman power with a constant $\alpha$-robustness and $\zeta$-robustness.
+An alternative way in which to interpret the $\alpha$-robustness measure is based on how easily a middleman can be contested by sets of other nodes. A low value for $\alpha_{i}$ means that it takes few relationships to be activated in order for a given middleman, $i$, to be contested. We would consider a relatively small network to have low values of $\alpha$ for all middlemen. Finally it is worth noting that the $\alpha$-robustness is always finite and bounded by $(n-1)$ and $\zeta$-robustness is also always finite and bounded by $\min \{ \# s_{i}, \# p_{i} \}$.
 
-An alternative way in which to interpret the $\alpha$-robustness measure is based on how easily a middleman can be contested by sets of other nodes. A low value for $\alpha_{i}$ means that it takes few relationships to be activated in order for a given middleman, $i$, to be contested. We would consider a relatively small network to have low values of $\alpha$ for all middlemen. Finally it is worth noting that the $\alpha$-robustness is always finite and bounded by $(n-1)$ and $\zeta$-robustness is also always finite and bounded by $\min \{ \# s_{i}, \# p_{i} \}$. 
-
-\subsubsection{Node robustness measure}
+\subsubsection{Node robustness}
 
 The node robustness of a middleman, denoted by $\varphi$-robustness, is an extension of the $\zeta$-robustness measure. The $\varphi$-robustness of a middleman is defined in terms of the minimum number of nodes that need to be deleted in order for a given node to lose its middleman position.
 
 \begin{definition}[$\varphi$-robustness measure]
 Let $D$ be a network on node set $N$ and let $D'$ be a network on node set $N'$ where $N' \subset N$. There exists some node $i \in N' \cap N$ such that $i \in \mathcal{M}(D)$. The \textbf{$\mathbf{\varphi}$--robustness} of node $i$ is given as:
 \begin{equation}
-\varphi_{i} = \# N - \max \, \{ \, \# N' \mid N' \subset N \mbox{ and } i \notin \mathcal{M}(D') \, \} . 
+\varphi_{i} = \# N - \max \, \{ \, \# N' \mid N' \subset N \mbox{ and } i \notin \mathcal{M}(D') \, \} .
 \end{equation}
 \end{definition}
 
-Much like before, if a node is a middleman then the $\varphi$-robustness of the node will always be a finite positive integer bounded by $n-2$, however the measure is not necessarily positively correlated with the middleman power of the node. An extension of the $\varphi$-robustness measure is to assume that node deletion is based on some probability distribution.
+If a node is a middleman then the $\varphi$-robustness of the node will always be a finite positive integer bounded by $n-2$, however the measure is not necessarily positively correlated with the middleman power of the node. An extension of the $\varphi$-robustness measure is to assume that node deletion is based on some probability distribution.
 
-\medskip \noindent A result from the assessment of middleman power and robustness is that there can emerge cases in which middlemen with a high brokerage power can have a low robustness. If this is so then it is either easily circumvented or it can easily lose its position if there are disturbances to the network that lead it to losing nodes. Given this, a low robustness means that irrespective of the middleman power of the node there is a large opportunity for it to become contested or not an intermediary.
+\medskip \noindent A result from the assessment of middleman power and robustness is that there can emerge cases in which middlemen with a high brokerage power can have a low robustness. If this is so then it is either easily circumvented or it can easily lose its position if there are disturbances to the network that lead it to losing nodes. Given this, a low robustness means that, irrespective of the middleman power of the node, there is a large opportunity for it to become contested or not an intermediary.
 
-The middleman power of a node provides a good indication of its robustness, however it is not necessarily true that a higher middleman power indicates a higher robustness. A higher middleman power provides a greater potential for having a larger robustness. A higher middleman power allows for the potential for a higher complexity in the middleman's predecessor and successor set. Indeed, the robustness of the middleman is increased if a greater number of its successors require the presence of the middleman to be connected to each other, and likewise for its predecessors.
+% A higher middleman power allows for the potential for a higher complexity in the middleman's predecessor and successor set. Indeed, the robustness of the middleman is increased if a greater number of its successors require the presence of the middleman to be connected to each other, and likewise for its predecessors.
 
 \section{An application to two empirical networks}
 \label{sec:empiricalNetwork}
 
-In this section we apply our two middleman power measures to two well-known social networks. From the assessment of these networks we provide a discussion regarding the potential of middlemen in these networks. The results of middleman power are compared with other measures of centrality. This is done in terms of reference; we refrain from correlating the results of these measures because we showed above that middleman power measures different aspects of a node than other measures.
+We apply our middleman power and robustness measures to two well-known social networks. From the assessment of these networks we provide a discussion regarding the potential of middlemen in these networks. The results of middleman power are compared with other measures of centrality. This is done in terms of reference; we refrain from correlating the results of these measures because we showed above that middleman power measures different aspects of a node than other measures.
 
 \subsection{The elite Florentine marriage network}
 
-The investigation of the marriage network of renaissance Florence has been extensively used to assess the effectiveness of many centrality measures to highlight positions of importance and influence \citep{Newman2003betweenness}.
+The investigation of the marriage network of Renaissance Florence has been extensively used to assess the effectiveness of many centrality measures to highlight positions of importance and influence \citep{Newman2003betweenness}.
 
 \begin{figure}[t]
 \centering
@@ -693,21 +674,23 @@ The investigation of the marriage network of renaissance Florence has been exten
 \label{Fig:FlorentineFamilies}
 \end{figure}
 
-It has been shown in contemporary studies of the marriage network that the Medici family have the highest degree, closeness, and betweenness centralities. However, \citet{Roover1963}, \citet{Padgett1994} and \citet{Goldthwaite2009} explain that their importance and power in the marriage network especially is derived from their ability to access diverse sources of information between separate factions of the Florentine aristocracy and subsequently broker relationships between families of separate factions. As such, the Medici family filter information by allowing or not allowing pieces of information to spread to other factions; thus largely monopolising informational spread. Powerful brokerage opportunities, which the Medici took advantage of, emerged due to the inherent ``network disjunctures within the elite'' \citep[p.~1259]{Padgett1993}. In particular, \citet{Padgett1993} show that Cosimo de'Medici was able to gain access to, and control, the flow of diverse information between opposing political factions and also between families in the same faction. Thus, a middleman position allowed the Medici family to attain power within Florentine society; especially, the Medici's ability to act as broker between a large number of families crossing opposing political factions.
+It has been shown in contemporary studies of the marriage network that the Medici family have the highest degree, closeness, and betweenness centralities. However, \citet{Roover1963}, \citet{Padgett1994} and \citet{Goldthwaite2009} explain that their importance and power in the marriage network especially is derived from their ability to access diverse sources of information between separate factions of the Florentine aristocracy and forming relationships between families of separate factions. As such, the Medici family filter information by choosing to allow or disallow information to spread between factions; thus largely monopolising informational spread. Powerful brokerage opportunities, which the Medici took advantage of, emerged due to the inherent ``network disjunctures within the elite'' \citep[p.~1259]{Padgett1993}. In particular, \citet{Padgett1993} show that Cosimo de'Medici was able to gain access to, and control, the flow of diverse information between opposing political factions and also between families in the same faction. Within the context discussed throughout this article, a middleman position allowed the Medici family to attain power within Florentine society; especially, the Medici's ability to act as broker between a large number of families crossing opposing political factions.
 
-Unlike more recent renditions of the Florentine marriage network where the marriage network is depicted as a reduced undirected graph---but keeping in line with the format initially provided by \citet[p.~1276--1277]{Padgett1993}---we represent this network as a directed graph. In doing so we draw an arc from family $i$ to family $j$ to represent a female from family $i$ married into family $j$. The resulting marriage network can be seen in Figure~\ref{Fig:FlorentineFamilies}\footnote{The data was initially gathered by \citet{Kent1978} and a blockmodel network was constructed and used in \citet{Padgett1993} and \citet{Padgett1994}. The network provided in Figure~\ref{Fig:FlorentineFamilies} is derived from these studies. Both provide an extremely rich analysis of the families in Florence at this time.}. The intuition for this representation is that families were strategically married in order to build trust, inherit wealth, property, and business, as well as influence the political and economic decisions of other families. Information will have flowed through these relationships and these marriage will have often supported economic relationships in the form of trade, employment and loan provision. Moreover, unlike more recent assessments of the Florentine marriage network we include families as groups; thus all nodes represent a group of families under the same name. The groups of families are coloured depending on the factions that the families were affiliated: dark grey nodes are families affiliated with the Medician faction; light grey nodes are families affiliated with the opposing Oligarch faction; and the only family with split loyalties, which became increasingly oligarchical over time, is the Pazzi family coloured in red. Finally the size of the node corresponds to the relative cumulative gross wealth of the family in the group: a node of a relatively large size is considered to have a relatively large gross wealth. For reference, the node of the smallest size is the Scambrilla family.
+Unlike more recent renditions of the Florentine marriage network where the marriage network is depicted as a reduced undirected graph---but keeping in line with the format and structure initially provided by \citet[p.~1276--1277]{Padgett1993}---we represent this network as a directed graph. In doing an arc is drawn from family $i$ to family $j$ to represent a female from family $i$ married to amale in family $j$. The resulting marriage network can be seen in Figure~\ref{Fig:FlorentineFamilies}\footnote{The data was initially gathered by \citet{Kent1978} and a blockmodel network was constructed and used in \citet{Padgett1993} and \citet{Padgett1994}. The network provided in Figure~\ref{Fig:FlorentineFamilies} is derived from these studies. Both provide an extremely rich analysis of the families in Florence at this time.}. The intuition for this representation is that families were strategically married in order to build trust, inherit wealth, property, and business, as well as influence the political and economic decisions of other families. Information will have flowed through these relationships and these marriage will have often supported economic relationships in the form of trade, employment and loan provision. Moreover, unlike more recent assessments of the Florentine marriage network we include families as groups; thus all nodes represent a group of families under the same name. The groups of families are coloured depending on the factions that the families were affiliated: dark grey nodes are families affiliated with the Medician faction; light grey nodes are families affiliated with the opposing Oligarch faction; and the only family with split loyalties, which became increasingly oligarchical over time, is the Pazzi family coloured in red. Finally the size of the node corresponds to the relative cumulative gross wealth of the family in the group: a node of a relatively large size is considered to have a relatively large gross wealth. For reference, the node of the smallest size is the Scambrilla family.
 
 Data was gathered regarding the cumulative gross wealth of groups of all families. This data can be derived from the census and property survey of Florentine dominions in the province of Tuscany, 1427--1480. The data has also been posted online as the \emph{Online Catasto of 1427} and can be found in Appendix B of \citet{Padgett1993}. The Medici family, despite their political and cultural prominence, are only considered as the fifth wealthiest family in Florence during this time. The Medici are not even the wealthiest family in their own faction; they are second to the Tornabuoni family. This information expresses two features: first, this was not the zenith period of the Medici; and second, it can be argued that it was specifically the Medici's superior position in the marriage network as opposed to just their economic presence that allowed them to gain command in Florence during this time. Elaborating on the first point we note that although the Medici had established a considerable banking dynasty by 1427 it was still under the command of Giovanni di'Bicci de'Medici. We know from  It wasn't until the reign of Cosimo di'Giovanni de'Medici in 1929 that the House of Medici rose to phenomenal economic and political prominence. The argument made by the second point provides the basis for our discussion regarding the structure of the network and the centrality of families with respect to the strategic marriages.
 
+% \medskip\noindent The Medici attained control in Florence because they not only brokered relationships between families in the network, but because they brokered relationships between two opposing factions. Therefore, they were not only able to gather and intercept information between the factions but also use it to their advantage. This is the prerogative of middlemen in social networks; to not only intercept and facilitate information between agents, but to manipulate and exploit it.
+
 \subsubsection{Network structure}
 
-There are 11 families in the Medician faction, 20 families in the oligarchic faction and 1 family, the Pazzi, are of a mixed alliance. The marriage network contains 9 weakly connected components and 23 strongly connected components. The giant weakly connected component contains 62.5\% of all families in the analysis. The network diameter is 6 with an average path length of 2.881 and the directed network density is 0.031. The average degree is 0.969, and the distribution is similar to that of a power law. The maximal $k$-core is 4 and contains the Pazzi, Peruzzi, Strozzi, and Albizzi families: these families form a \emph{rich club}. The network thickness index is 0.
+There are 11 families in the Medician faction, 20 families in the oligarchic faction and 1 family, the Pazzi, are of a mixed alliance. The marriage network contains $9$ weakly connected components and $23$ strongly connected components. The giant weakly connected component contains 62.5\% of all families in the analysis. The network diameter is $6$ with an average path length of $2.881$ and the directed network density is $0.031$. The average degree is $0.969$, and the distribution is similar to that of a power law. The maximal $k$-core is $4$ and contains the Pazzi, Peruzzi, Strozzi, and Albizzi families: these families form a \emph{rich club}.
 
-A non-technical analysis of the network produced in Figure~\ref{Fig:FlorentineFamilies} highlights a clear distinction between the connectivity of the two main factions. If we were to include the Pazzi as a member of the Oligarch faction then only 3 out of 31 of the marriages formed were marriages between families of different factions. It is also clear that the families of the Pazzi, Albizz and Madici are clear gate-keepers to information flows between the factions within the main component. However, the Medici is the only family that acts as a (strong) middleman between both factions; the removal of the Medici leads to the partitioning of the factions in the main component.
+The network produced in Figure~\ref{Fig:FlorentineFamilies} highlights a clear distinction between the connectivity of the two main factions. If we were to include the Pazzi as a member of the Oligarch faction then only 3 out of 31 of the marriages formed were marriages between families of different factions. As such, it is clear that the families of the Pazzi, Albizz and Madici are gate-keepers to information flows between the factions within the giant component. Importantly, the Medici is the only family that acts as a (strong) middleman between both factions; the removal of the Medici leads to the partitioning of the factions in the giant component.
 
-The structure of the Medician faction takes the form of a rooted tree---a hierarchical construct---where the Medici family exist at the root. Such a structure provides a better basis for top-down organisation and the distribution of command throughout the families. This structure contrasts with the Oligarchic faction where individual agents are more densely connected and thus more structurally equivalent. It was explained that the Oligarchic faction suffered from ill-defined leadership and inter-faction power struggles. This more decentralised structure is certainly reflected in the marriage network. Specifically, \citet{Padgett1993}, \citet{PadgettMcLean2006} and \citet{PadgettPowell2012} noted that the Oligarchic faction was less cohesive and more disorganised than the Medician faction. From our analysis it is seen that there are more brokerage opportunities in the Oligarchic faction highlighting that they were more disjunctured. We see that $\tfrac{7}{16}$ of the connected Oligarchs are middlemen against $\tfrac{2}{11}$ of the families in the Medician faction. Thus, the presence of more middleman positions within the Oligarchs decentralised structure allows for more brokering of information flows and, as such, a greater ability to manipulate information flows between members of the faction. This potential for the manipulation of information derived from the positional attributes of a family was not as prominent a feature within the Medician faction.
+The structure of the Medician faction takes the form of a hierarchical tree, within which the Medici family exists as the root. The heirarchical structure provides a better basis for the distribution of command and organisation throughout the families. This structure contrasts with the oligarchic faction where individual agents are more densely connected and thus more structurally equivalent. It was explained that the Oligarchic faction suffered from ill-defined leadership and inter-faction power struggles. This more decentralised structure is certainly reflected in the marriage network. \citet{Padgett1993}, \citet{PadgettMcLean2006} and \citet{PadgettPowell2012} noted that the Oligarchic faction was less cohesive and more disorganised than the Medician faction. From our analysis it is seen that there are more brokerage opportunities in the Oligarchic faction highlighting that they were more disjunctured. We see that $\tfrac{7}{16}$ of the connected Oligarchs are middlemen against $\tfrac{2}{11}$ of the families in the Medician faction. Thus, the presence of more middleman positions within the Oligarchs decentralised structure allows for more brokering of information flows and, as such, a greater ability to manipulate information flows between members of the faction. This potential for the manipulation of information derived from the positional attributes of a family was not as prominent a feature within the Medician faction.
 
-Further, we note that when running Newman's Q-measure of network modularity \citep{Newman2004detecting, Newman2006}---which gives the value of 0.521---the different factions can be easily partitioned. More specifically, Oligarchic faction is deconstructed into three distinct communities whereas the Medician faction remains as one district community. Moreover, the partitioning of the communities are determined by the middlemen within the faction. This measure of modularity reinforces the disjunctured nature of the Oligarchic faction.
+Further, we note that when running Newman's Q-measure of network modularity \citep{Newman2004detecting, Newman2006}---which gives the value of $0.521$---the different factions can be easily partitioned. More specifically, Oligarchic faction is deconstructed into three distinct communities whereas the Medician faction remains as one district community. Moreover, the partitioning of the communities are determined by the middlemen within the faction. This measure of modularity reinforces the disjunctured nature of the Oligarchic faction.
 
 \subsubsection{Centrality and power}
 
@@ -735,25 +718,21 @@ Strozzi(**)     & 407,296 & 3(2) 						 & 0.053 	 & 0.506   & 0.152    \\ \hline
 \end{center}
 \end{table}
 
-The simplest measurement of the centrality and power of a node is the number of links it has in a network. In a directed network the connections that a node has can be partitioned into the number of direct successors (node out-degree) and the number of direct predecessors (node in-degree). The Peruzzi family has the greatest number of direct successors (4) and the Pazzi have the greatest number of direct predecessors (4); the Pazzi family also have the greatest sum of direct successors and direct predecessors (7). In an undirected network the connections that a node has is simply the total number of links that a node has; this is not necessarily the same as the sum of direct predecessors and direct successors as some node may be both a direct predecessor and direct successor. If the network were transformed to its undirected form then the Pazzi, the Albizzi, and Peruzzi families are connected to 6 families each. The Medici and Strozzi families are connected to 5 families each. 
+The most primative measurement of the centrality and power of a node is the number of arcs point to it or from it. In a directed network the connections that a node has can be partitioned into the number of direct successors---node out-degree ($d^+_i$)---and the number of direct predecessors---node in-degree ($d^-_i$). The Peruzzi family has the greatest number of direct successors (4) and the Pazzi have the greatest number of direct predecessors (4); the Pazzi family also have the greatest sum of direct successors and direct predecessors (7) \footnote{In an undirected network the connections that a node has is given by the total number of connections that a node has; this is not necessarily the same as the sum of direct predecessors and direct successors as some node may be both a direct predecessor and direct successor.}. If the network were transformed to its undirected form then the Pazzi, Albizzi, and Peruzzi families are connected to 6 families each. The Medici and Strozzi families are connected to 5 families each. There are two aspects to note from the assessment of node degree. First we note that, in general, families with a relatively higher degree are more prone to be middlemen in the network. This is true for most families, apart from the Guadagni who are conveniently positioned such that their single in-degree and single out-degree forms a middleman position. Second, we note that the Medici faction does not have the highest degree centrality relative to other families in the Oligrahic faction.
 
-There are two aspects to note from the assessment of node degree. First we note that, in general, families with a relatively higher degree are more prone to be middlemen in the network. This is true for most families apart from the Guadagni who are conveniently positioned such that their single in-degree and single out-degree forms a middleman position. Second, we note that the Medici faction does not have the highest degree centrality relative to other families in the Oligrahic faction.
+The Pazzi family possesses the highest betweenness centrality in the directed marriage network. The measure can favour middlemen thus typically ranking them higher; eight of the top ten families in terms of their betweenness score are either weak or strong middlemen. In the undirected representation of the network the Medici have the highest betweenness centrality ($0.166$) followed by the Pazzi ($0.142$). Unsurprisingly, the Bonacich centrality measure also ranks the Pazzi family highly, but also ranks many non-middlemen highly; specifically the Panciatichi family. From the network topology alone there is no indication to suggest that the Panciatichi family should have had a prominent role in the Florentine aristocracy. Although the Medici rank highly with this measure, the relevance of an eigenvector centrality measure is questionable: there is no real reason to believe why the importance of a family would come from its degree and the degree of its neighbours alone.
 
-Assessing the marriage network with the middleman power index highlights the Medici family as a strong middleman, along with the prominent Albizzi, Castellani, Ginori, Pazzi, and Strozzi families. It is, however, the Pazzi and Albizzi families that have a greater middleman power (0.503 and 0.357, respectively) than the Medici (0.269). The diversity of the Medici's brokered relationships extend further than those of the Albizzi and Pazzi families as the Medici brokers between factions. If, however, the direct marriage network is transformed into an undirected network such that information can flow in both directions then the Medici becomes the most powerful middleman with a normalised middleman power of 0.470; they are followed by the Ginori, Castellani and Strozzi families who have a normalised middleman power of 0.213. if the marriage network were converted into its undirected form, the Medici retains its strong middleman position maintaining the highest middleman power in the marriage network, and therefore control the flow of information and influence between more families.
+Assessing the marriage network with the middleman power index highlights the Medici family as a strong middleman, along with the prominent Albizzi, Castellani, Ginori, Pazzi, and Strozzi families. It is, however, the Pazzi and Albizzi families that have a greater middleman power ($0.503$ and $0.357$ respectively) than the Medici ($0.269$). The diversity of the Medici's brokered relationships extend further than those of the Albizzi and Pazzi families as the Medici brokers between factions. If, however, the directed marriage network were converted into an undirected network such that information can flow in both directions then the Medici becomes the most powerful middleman with a normalised middleman power of $0.470$; they are followed by the Ginori, Castellani and Strozzi families who have a normalised middleman power of $0.213$.
 
-The betweenness centrality measure ranks the Pazzi family as the most central in the directed marriage network. The measure favours middlemen thus typically ranking them higher; eight out of the top ten families in terms of their betweenness score are either weak or strong middlemen. In the undirected representation of the network the Medici have the highest betweenness centrality (0.166) followed by the Pazzi (0.142).
+\subsubsection{Middleman robustness}
 
-Unsurprisingly, the Bonacich centrality measure also ranks the Pazzi family highly, but also ranks many non-middlemen highly; specifically the Panciatichi family. From the network topology alone there is no indication to suggest that the Panciatichi family should have had a prominent role in the Florentine aristocracy. Although the Medici rank highly with this measure, the relevance of an eigenvector centrality measure is questionable: there is no real reason to believe why the importance of a family would come from its degree and the degree of its neighbours alone. However, despite that the eigenvector centrality correlates highly with the gross wealth of the 
+% Due to the low density of the directed marriage network only one family---the Panciatichi family---is a non-middleman that can potentially become a middleman from the removal of other families in the network. Specifically, given the removal of the Peruzzi family the Panciatichi family becomes a middleman in the directed network. The Panciatichi family therefore has a thickness of 1. All other nodes either have a thickness of 0, since they can never be a middleman, or a thickness of $\infty$, since they already are middlemen.
 
-\subsubsection{Threshold sets, thickness and middleman robustness}
-
-Due to the low density of the directed marriage network only one family---the Panciatichi family---is a non-middleman that can potentially become a middleman from the removal of other families in the network. Specifically, given the removal of the Peruzzi family the Panciatichi family becomes a middleman in the directed network. The Panciatichi family therefore has a thickness of 1. All other nodes either have a thickness of 0, since they can never be a middleman, or a thickness of $\infty$, since they already are middlemen.
-
-We finally discuss the robustness of each middleman position in terms of the $\alpha$-robustness, $\varphi$-robustness, and $\zeta$-robustness measures that were developed in this chapter. We provide information on the robustness of middlemen in both the directed and undirected marriage networks and the results can be seen in Table~\ref{FlorenceRobust}. In general we find that the $\varphi$- and $\zeta$-robustness measures provide extremely similar results. The directed network highlights the Albizzi and Pazzi families as being robust; especially in terms of the $\varphi$-robustness and $\zeta$-robustness measures. Both families are followed by the Medici, who are substantially robust across all measures. The results of the robustness measures suggests that there is a clear distinction between the consistency of some middlemen over others. All robustness measurements provide the same result with respect the the undirected form of the marriage network. The Medici is highlighted as being the most robust strong middleman in the undirected network. Notably, even though the Pazzi and Albizzi were robust in the directed network they both perform poorly in terms of the undirected representation of the marriage network.
+We finally discuss the robustness of each middleman position in terms of the $\alpha$-robustness, $\varphi$-robustness, and $\zeta$-robustness measures that were developed above. We provide information on the robustness of middlemen in both the directed and undirected marriage networks and the results can be seen in Table~\ref{FlorenceRobust}. In general we find that the $\varphi$- and $\zeta$-robustness measures provide extremely similar results. The directed network highlights the Albizzi and Pazzi families as being robust; especially in terms of the $\varphi$-robustness and $\zeta$-robustness measures. Both families are followed by the Medici, who are substantially robust across all measures. The results of the robustness measures suggests that there is a clear distinction between the consistency of some middlemen over others. All robustness measurements provide the same result with respect the the undirected form of the marriage network. The Medici is highlighted as being the most robust strong middleman in the undirected network. Notably, even though the Pazzi and Albizzi were robust in the directed network they both perform poorly in terms of the undirected representation of the marriage network.
 
 \begin{table}[]
 \centering
-\begin{tabu} to \textwidth {X[l]  X[c]  X[c]  X[c] || X[c]  X[c]  X[c]  X[c]} 
+\begin{tabu} to \textwidth {X[l]  X[c]  X[c]  X[c] || X[c]  X[c]  X[c]  X[c]}
 \hline \hline
                &              & Directed    &              &              & Undirected  &              \\
 Name           & $\alpha_{i}$ & $\varphi_{i}$ & $\zeta_{i}$ & $\alpha_{i}$ & $\varphi_{i}$ & $\zeta_{i}$ \\ \hline
@@ -771,9 +750,7 @@ Strozzi(**)    & 4            & 2           & 2            & 2            & 2   
 \label{FlorenceRobust}
 \end{table}
 
-The robustness and centrality measures do not highlight the factions that exist within this network, and therefore simply assumes that relationships can be made without social or institutional pressures. As a consequence it could be argued that, regardless of the robustness measures, the Medici has the highest middleman robustness due to the fact that they are middlemen across both factions. Indeed, social and marriage relationships cannot be formed so seamlessly between families of opposing factions, therefore the robustness of the Medici's position is further strengthened due to the institutional pressures of society itself. This is, as previously discussed, a convincing reason for why the Medici's powerful position was stable for such a long time.
-
-\medskip\noindent The Medici attained control in Florence because they not only brokered relationships between families in the network, but because they brokered relationships between two opposing factions. Therefore, they were not only able to gather and intercept information between the factions but also use it to their advantage. This is the prerogative of middlemen in social networks; to not only intercept and facilitate information between agents, but to manipulate and exploit it.
+The robustness and centrality measures do not highlight the heterogeneous factions that exist within this network and the importance of information brokerage between them. The measures are purely topological and therefore assume that relationships can be created and severed without social or institutional pressures. As a consequence it could be argued that, regardless of the robustness measures, the Medici has the highest middleman robustness due to the fact that they are middlemen across both factions. Indeed, social and marriage relationships cannot be formed so seamlessly between families of opposing factions, therefore the robustness of the Medici's position is further strengthened due to the institutional pressures of society itself. This is, as previously discussed, a convincing reason for why the Medici's powerful position was stable for such a long time.
 
 \begin{figure}[t]
 \centering
@@ -826,9 +803,7 @@ The weak middleman, manager (node) 15, has the highest brokerage in the organisa
 
 Both Bonacich and betweenness centralities are also seen to be poor indicators for ranking middlemen: Node 15 is the most powerful middleman in the network, but has a Bonacich and betweenness centrality lower than Node 21. The Bonacich influence model does not consider the fact that middlemen are potentially able to exploit their position by using information from others and blocking the transmission of certain information and ideas.
 
-\subsubsection{Concluding comments}
-
-Due to the formation of new socio-economic roles entrepreneurial agents can assume unique positions in a network. These unique positions can intuitively be seen with respect to their connectivity in the socio-economic space and can be defined accurately as middleman positions. 
+\subsection{Concluding comments}
 
 Middlemen possess an ability to connect pairs of agents who would otherwise be disconnected from each other; these can have liberating externalities for those directly or indirectly connected to middlemen in the form of opening new exchange routes and channels of information, but middlemen can exploit their position and as such act in a highly extractive way to their neighbourhood. Whether a middleman behaves in an exploitive or facilitating manner is ambiguous and dependent on the institutional environment; however the middleman power measure provides a mechanism in which to measure the positional power of the middleman and therefore provides an objective quantitative value to the potentially extractive or value-generating nature of the entrepreneurial agent.
 
@@ -862,25 +837,7 @@ Reassessing the directed network in Figure~\ref{weakmm}, the distance-based midd
 
 It may be particularly beneficial to use this modified measure to assess costly trade in a network or the diffusion of information that can degrade as it is being passed through a network. This assumption of information degradation and even complete truncation over a certain distance has been widely used in literature regarding social networks \citep{JacksonRogers2005}.
 
-\subsection{Weighted brokerage}
-
-The analysis throughout the article looks at binary directed networks only. However, many networks can be weighted in terms of the intensity of the relationship between some pair of nodes $i$ and $j$ in $N$. We denote the weight of an arc $ij$ by $\omega_{ij}$, where $0 < \omega_{ij} \leq 1$ if there exists an arc and $\omega_{ij} = 0$ otherwise. The intuition is that the intensity of the relationship between $i$ and $j$ increases as $\omega_{ij}$ converges to $1$.
-
-Given a weighted directed network all $ij$-walks can be weighted. The weight of an $ij$-walk is given by the product of the weights of all arcs in the given walk from node $i$ to $j$. The \emph{strongest} walk from node $i$ to node $j$ is therefore considered to be the $ij$-walk with the largest weight. Note that this does not mean it is the geodesic path; but instead is equal to the walk with the highest weight. We formally define these concepts below.
-\begin{definition}[Weighted brokerage]
-Let $D$ be a weighted directed network on node set $N$ where $i,j \in N$ and $\mathcal{W}_{ij}(D) \neq \varnothing$ such that $i \neq j$.
-\begin{itemize}
-\item[(a)] The weight of some walk $W_{ij} \in \mathcal{W}_{ij}(D)$, denoted by $\Omega_{W_{ij}}$, is calculated by:
-\begin{equation}
-\Omega_{W_{ij}}(D) = \prod_{i_{\ell},i_{\ell+1} \in W_{ij}(D)} \omega_{i_{\ell}i_{\ell+1}}
-\end{equation}
-
-\end{itemize}
-
-\end{definition}
-
-
-\subsection{Power and centrality in Renaissance Florence networks} 
+\subsection{Power and centrality in Renaissance Florence networks}
 \label{A}
 
 This chapter analysed the network structure and node centrality of elite Florentine marriages. Here we provide more information as to the centrality of nodes within the network (Table~\ref{tabFlorenceA}).
@@ -913,7 +870,7 @@ Lamberteschi    & Oligarch	& 64,775  	& 0(0) & 0.000 & 0.000 & 0.000      \\
 Medici(**)      & Medician	& 248,105 	& 3(2) & 0.058 & 0.506 & 0.269      \\
 Orlandini       & Medician	& 16,315  	& 0(1) & 0.000 & 0.001 & 0.000      \\
 Panciatichi     & Oligarch	& 193,878 	& 1(2) & 0.005 & 0.566 & 0.000      \\
-Pazzi(**)       & Mixed		& 341,198 	& 3(4) & 0.093 & 1.000 & 0.503      \\
+Pazzi(**)       & Mixed		  & 341,198 	& 3(4) & 0.093 & 1.000 & 0.503      \\
 Pepi            & Oligarch	& 43,100  	& 0(1) & 0.000 & 0.157 & 0.000      \\
 Peruzzi(*)      & Oligarch	& 150,375 	& 4(2) & 0.070 & 0.612 & 0.287      \\
 Rondinelli(*)   & Oligarch	& 43,588  	& 1(1) & 0.014 & 0.157 & 0.076      \\
