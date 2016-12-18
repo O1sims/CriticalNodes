@@ -1,4 +1,4 @@
-# Contestability and Critical Nodes in Directed Networks
+# Middlemen and Contestation in Directed Networks
 
 ## 1 About
 
@@ -12,11 +12,7 @@ This article develops and assesses the notions of contestability and critical no
 >
 > Node contestability is introduced as a form of competition in network; a duality between uncontested intermediaries and middlemen is established. The brokerage power of middlemen is formally expressed and a general algorithm constructed to measure the brokerage power of each node from the network's adjacency matrix. Augmentations of the brokerage power measure are discussed to encapsulate relevant centrality measures. Furthermore, we extend these notions and provide measures of the competitiveness of a network. To this we also provide measurements of the robustness of a middleman position.
 >
-> We use these concepts to dentify and measure middlemenin two empirical socio-economic networks. The first is the elite marriage network of Renaissance Florence. The other is Krackhardt's advice network.
-
-### 1.2 Contributions
-
-
+> We use these concepts to identify and measure middleman power and robustness in two empirical socio-economic networks: Krackhardt’s advice network of managers in a large corporation and the well-known Florentine marriage network as a proxy of power brokerage in Renaissance Florence.
 
 ## 2 Compiling the article
 
@@ -28,11 +24,11 @@ The latest PDF should have already been compiled and uploaded to the repository.
 
 ## 3 Statistical code and visualisation tools
 
-We provide a number of functions written in `R` and `Matlab` programming languages that were used in conjunction with the mathematical tools developed in the article. The functions written in `R` were used for network, hypergraph and statistical analysis and the scripts written in `Matlab` were used for simulations of economic interactions and the growth of the socio-economic space. Some data, which was also used throughout the article, has been provided to test the tools on. These functions can be found in the `Code` directory.
+We provide a number of functions written in the `R` programming languages that were used in conjunction with the mathematical tools developed in the article. The functions were used for network analysis. Some data, which was also used throughout the article, has been provided to test the tools on. These functions can be found in the `code` directory.
 
 ### 3.1 Network visualisation
 
-The `igraph` package for both `R` and `Python` is a great tool for visualising network data. Information on the `igraph` package can be found [here](http://igraph.org/redirect.html). However, all networks, and some of the analysis, were rendered with the `Gephi` software package which can be found [here](https://gephi.org/). I created a wrapper for `Gephi` such that data generated in `R` could be passed between it and `Gephi`.
+All networks, and some of the analysis, were rendered with the `Gephi` software package which can be found [here](https://gephi.org/). I created a wrapper for `Gephi` such that data generated in `R` could be passed between it and `Gephi`.
 
 ## 4 Contact
 
